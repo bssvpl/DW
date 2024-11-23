@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Ventas</title>
+    <link th:href="@{/css/Inicio.css}" rel="stylesheet" >
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Abel&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Barra de Navegacion -->
+        <nav class="nav-bar">
+            <div class="logo">
+                <img src="/imagesWeb/LogoOficial.png" alt="logo de la empresa" class="logo-img">
+            </div>
+            <ul class="nav-items">
+                <li><a th:href="@{/vistausuario/productosvista}"><i class="fas fa-home nav-icon"></i></a></li>
+    
+                <li><a href="#"><i class="fas fa-store nav-icon"></i></a></li>
+                <li><a href="#"><i class="fas fa-user nav-icon"></i></a></li>
+                <li><a href="#"><i class="fas fa-bell nav-icon"></i></a></li>
+                <li><a href="#"><i class="fas fa-heart nav-icon"></i></a></li>
+                <div class="divider"></div>
+                <li><button class="logout-btn"><i class="fas fa-sign-out-alt"></i></button></li>
+                <li><a href="#" class="user-profile"><i class="fas fa-circle-user nav-icon"></i></a></li>
+                
+            </ul>
+        </nav>
+
+        <!-- Area central-->
+        <main>
+            <div class="slider-container">
+                <img th:src="@{/imagesWeb/img/slider_1.png}" alt="Imagen principal" class="main-image fade">
+                <img th:src="@{/imagesWeb/img/slider_2.png}" alt="Imagen principal" class="main-image fade">
+                <img th:src="@{/imagesWeb/img/slider_3.png}" alt="Imagen principal" class="main-image fade">
+                
+                <button class="slider-arrow next">
+                    <img th:src="@{/imagesWeb/icons/flecha_blanca.svg}" alt="siguiente">
+                </button>
+                <div class="slider-content">
+                    <h2 class="slider-title"></h2>
+                    <p class="slider-description"></p>
+                    <a href="#" class="slider-button"></a>
+                </div>
+                
+                
+            </div>
+            <div class="tiendas-overlay">
+                <h3>EXPLORA NUESTRAS TIENDAS</h3>
+                <div class="tiendas-grid">
+                    <a th:href="@{/catalogoproductos(tienda=1)}" class="tienda-btn">BALBONI</a>
+                    <a th:href="@{/catalogoproductos(tienda=2)}" class="tienda-btn">LADY POSH</a>
+                    <a th:href="@{/catalogoproductos(tienda=3)}" class="tienda-btn">WEARTHOR</a>
+                    <a th:href="@{/catalogoproductos(tienda=4)}" class="tienda-btn">MR POSH</a>
+                    <a th:href="@{/catalogoproductos(tienda=5)}" class="tienda-btn">FASHION L</a>
+                    <a th:href="@{/catalogoproductos(tienda=6)}" class="tienda-btn">WONDERSHIT</a>
+                </div>
+                <p class="tiendas-subtitle">Las mejores prendas de calidad premium</p>
+            </div>
+        </main>
+
+        <!-- Right column with 3 sections -->
+        <div class="right-column">
+            <!-- Buscador -->
+            <div class="search-container">
+                <input type="text" placeholder="Buscar algo" class="search-input">
+                <button class="search-button">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+
+            
+            <!-- Top Prendas -->
+            <div class="top-prendas">
+                <div class="section-header">
+                    <h2>TOP PRENDAS</h2>
+                    <img th:src="@{/imagesWeb/icons/+.svg}" alt="flag icon">
+                </div>
+                <div class="products-grid">
+                    <div class="product-card">
+                        <img th:src="@{/imagesWeb/img/prenda2.jpg}" alt="Prenda 2">
+                        <button class="cart-button">
+                            <i class="fas fa-shopping-cart"></i>
+                        </button>
+                    </div>
+                </div>
+                <p class="subtitle">Lo mejor de lo mejor</p>
+            </div>
+
+            <!-- Historial de Compras -->
+            <div class="historial">
+                <div class="section-header">
+                    <h2>HISTORIAL DE COMPRAS</h2>
+                    <i class="fas fa-history"></i>
+                </div>
+                <div class="purchase-list">
+                    <div class="purchase-item">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span>T2345-Polo S MisterPosh</span>
+                        <button class="expand-button">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                    <div class="purchase-item">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span>T2345-Polo S MisterPosh</span>
+                        <button class="expand-button">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                    <div class="purchase-item">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span>T2345-Polo S MisterPosh</span>
+                        <button class="expand-button">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+                <p class="subtitle">Las mejores ofertas esperan por ti</p>
+            </div>
+        </div>
+    </div>
+
+<script th:src="@{/js/Inicio.js}"></script>
+</body>
+</html>

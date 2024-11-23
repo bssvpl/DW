@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+    <link th:href="@{css/general.css}" rel="stylesheet" >
+	<link th:href="@{css/productos.css}" rel="stylesheet" >
+	<link th:href="@{css/OneToMany.css}" rel="stylesheet" >
+	
+	
+    <!-- Material de iconos -->
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp"
+      rel="stylesheet"/>
+
+    <!-- Google fonts popins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+
+    <title>Pedidos</title>
+</head>
+<body>
+  <div th:insert="~{administrador/template_home.html::header}"></div>
+  
+  <main>
+    <div th:insert="~{administrador/template_home.html::sidebar}"></div>
+    <section>
+        <h1>Pedidos</h1>
+        
+        <div class="controls">
+            <a th:href="@{/crearPedido}" class="btn-nuevo">Nuevo</a>
+
+            <div>
+                <label for="registros">Mostrar</label>
+                <select id="registros" class="select-registros">
+                    <option value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                </select>
+                registros
+                <input type="search" placeholder="Buscar...">
+            </div>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID pedido</th>
+                        <th>Usuario</th>
+                        <th>Producto</th>
+                        <th>Cantidad</th>
+                        <th>Precio unitario</th>
+                        <th>Fecha a entregar</th>
+                        <th>Estado</th>
+                        <th>Comprobante</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="pedido:${pedidos}">
+                        <td th:text="${pedido.id}"></td>
+                        <td th:text="${pedido.usuario.nombre}"></td>
+
+                        <td>
+                            <ul>
+                                <li th:each="detalle, iterStat : ${pedido.detallePedido}" 
+                                    th:text="${detalle.producto.nombre}" 
+                                    th:classappend="${iterStat.index == 0} ? 'ini' : (${iterStat.last} ? 'fi' : '')" class="m"></li>
+                            </ul>
+                            </td>
+                            <td>
+                                <ul>
+                                    <li th:each="detalle, iterStat : ${pedido.detallePedido}" th:text="${detalle.cantidad}" th:classappend="${iterStat.index == 0} ? 'ini' : (${iterStat.last} ? 'fi' : '')"></li>
+                                </ul>
+                            </td>
+                            <td>
+                                <ul>
+                                    <li th:each="detalle, iterStat : ${pedido.detallePedido}" th:text="'$' + ${detalle.precioUni}" th:classappend="${iterStat.index == 0} ? 'ini' : (${iterStat.last} ? 'fi' : '')"></li>
+                                </ul>
+                        </td>
+
+
+                        <td th:text="${pedido.fecha}"></td>
+                        <td th:text="${pedido.estado}"></td>
+                        <td th:text="${pedido.comprobante.serie} + ' - ' + ${pedido.comprobante.numero}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+  </main>
+
+  <script th:src="@{js/dashboard.js}"></script>
+  <script th:src="@{js/modo-btn.js}"></script>
+</body>
+</html>

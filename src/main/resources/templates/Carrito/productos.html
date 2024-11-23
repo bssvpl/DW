@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>GaleriaEstilo</title>
+    <link href="/css/vista.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+</head>
+<body>
+    <div class="principal-container" style="margin-top: -10px;">
+        <!-- Panel superior con carrito -->
+        <div class="principal-top-panel">
+            <div class="principal-panel-content">
+                <div class="principal-left-content">
+                    <img src="/imagesWeb/LogoOficial.png" class="principal-logo" />
+                    <h3 class="principal-title">GALERIA <span>ESTILO</span></h3>
+                </div>
+                <div class="principal-profile-area">
+                    <div class="principal-profile">
+                        <h5 id="UserConnected" th:text="${user != null ? user.datosPer.nombre + ' ' + user.datosPer.apellidos : 'Guest'}"></h5>
+                    </div>
+                    <div class="principal-cart-menu">
+                        <div class="principal-cart-icon">
+                            <a th:href="@{/vistausuario/bag}"><i class="fas fa-shopping-cart"></i></a>
+                            <span id="cart-count" class="cart-count">0</span> <!-- Contador del carrito -->
+                        </div>
+                        <div class="principal-menu-container">
+                            <span class="material-symbols-outlined" id="expand-profile">keyboard_arrow_down</span>
+                            <div id="principal-profile-menu" class="hidden">
+                                <a href="/logout">Cerrar Sesión</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tienda_header" th:if="${tiendaInfo}">
+            <h1 th:text="${tiendaNombre}">Nombre de la Tienda</h1>
+        </div>
+        <div class="principal-products-grid">
+            <div class="principal-product-card" th:each="producto : ${productos}">
+                <a th:href="@{/vistausuario/producto/{id}(id=${producto.id})}" class="principal-product-link">
+                    <div class="principal-product-image">
+                        <img src="/imagesWeb/prenda6.jpg" alt="Producto 1">
+                    </div>
+                    <div class="principal-product-details">
+                        <span class="principal-product-brand" th:text="${producto.marca}">Marca</span>
+                        <h3 class="principal-product-name" th:text=${producto.nombreProd}>Nombre</h3>
+                        <span class="principal-product-price" th:text="'S/ ' + ${producto.precio}">Precio</span>
+                    </div>
+                </a>
+                <a th:href="@{/vistausuario/bag/{id}(id=${producto.id})}" class="principal-btn-seleccionar">Seleccionar</a>
+            </div>
+        </div>
+    </div>
+    
+
+</body>
+</html>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    const expandProfile = document.getElementById('expand-profile');
+    const profileMenu = document.getElementById('principal-profile-menu');
+    const cartCount = document.getElementById('cart-count'); // Contador del carrito
+    let cartItems = 0; // Variable para contar los productos seleccionados
+
+    // Manejador del click en el ícono de expansión del perfil
+    expandProfile.addEventListener('click', function(e) {
+        e.stopPropagation();
+        profileMenu.classList.toggle('hidden');
+    });
+
+    // Cerrar el menú si se hace clic en cualquier parte fuera de él
+    document.addEventListener('click', function(e) {
+        if (!profileMenu.contains(e.target) && !expandProfile.contains(e.target)) {
+            profileMenu.classList.add('hidden');
+        }
+    });
+
+    profileMenu.addEventListener('click', function(e) {
+        e.stopPropagation();
+    });
+
+    // Manejador del click en el botón "Seleccionar" para agregar productos al carrito
+    const selectButtons = document.querySelectorAll('.principal-btn-seleccionar');
+    selectButtons.forEach(function(button) {
+        button.addEventListener('click', function() {
+            cartItems++; // Incrementa el contador de productos seleccionados
+            cartCount.textContent = cartItems; // Actualiza el contador en el ícono del carrito
+        });
+    });
+});
+
+</script>

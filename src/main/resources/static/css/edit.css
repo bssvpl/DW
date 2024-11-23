@@ -1,0 +1,77 @@
+h2 {
+    margin-bottom: 30px;
+
+}
+
+.product-edit-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.edit-form-group {
+    flex: 1 1 calc(50% - 10px);
+}
+
+.edit-form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+
+}
+
+.edit-form-group input,
+.edit-form-group select,
+.edit-form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.edit-form-group input:focus,
+.edit-form-group select:focus,
+.edit-form-group textarea:focus {
+    outline: none;
+    border-color: #4a90e2;
+    box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+}
+
+.edit-form-group textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.edit-form-group input[type="file"] {
+    padding: 5px;
+}
+
+.btn-update-container {
+    display: flex;
+    justify-content: flex-end; /* Alinea el botón a la derecha */
+    width: 100%; /* Asegura que el contenedor ocupe todo el ancho del formulario */
+    margin-top: 20px; /* Añade algo de espacio superior para mejorar el diseño */
+}
+
+.btn-update {
+    padding: 12px 24px;
+    background-color: #4a90e2;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-update:hover {
+    background-color: #3a7bc8;
+}
+
+@media (max-width: 600px) {
+    .edit-form-group {
+        flex: 1 1 100%;
+    }
+}

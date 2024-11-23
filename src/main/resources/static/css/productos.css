@@ -1,0 +1,132 @@
+
+
+h1 {
+    font-size: 2rem; /* Usando las proporciones de tu hoja de estilos previa */
+    margin-bottom: 20px;
+    color: var(--color-dark);
+}
+
+.btn-nuevo {
+    display: inline-block;
+    background-color: var(--color-success);
+    color: var(--color-white);
+    padding: var(--padding-1) 20px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: var(--border-radius-2);
+    margin-bottom: 20px;
+}
+.outer-wrapper {
+    margin: 10px;
+    margin-left: 10px;
+    margin-right: 20px;
+
+    width: 100%;
+    max-width: fit-content;
+    max-height: fit-content;
+}
+
+
+.tablescroll {
+    overflow-y: auto;
+    overflow-x: auto;
+    height: fit-content;
+    max-height:50.4vh;
+    width:160vh;
+    margin-top: 22px;
+    margin: 15px;
+    padding-bottom: 20px;
+}
+
+table {
+    min-width: max-content;
+    border-collapse: separete;
+    border-spacing: 0px;
+
+}
+
+table th {
+    position: sticky;
+    top: 0px;
+
+    background-color: #133b5c;
+    color: rgb(241, 245, 179);
+
+    text-align: center;
+    font-weight: normal;
+    font-size: 13px;
+    outline: 0.7px solid black;
+    border: 1.5px solid black;
+
+
+}
+table th, table td {
+
+    padding: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+}
+
+table td {
+    text-align: left;
+
+    font-size: 10px;
+    border: 1px solid rgb(177, 177, 177);
+    padding-left: 20px;
+
+}
+
+/* Zebra striping */
+tbody tr:nth-child(even) {
+    background-color: var(--color-light); /* Color gris claro */
+}
+
+tbody tr:nth-child(odd) {
+    background-color: var(--color-white); /* Color blanco */
+}
+
+.btn-editar {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    padding: 8px 15px;
+    text-decoration: none;
+    border-radius: var(--border-radius-2);
+    margin-right: 5px;
+    display: inline-block;
+}
+
+.btn-borrar {
+    background-color: var(--color-danger);
+    color: var(--color-white);
+    padding: 8px 15px;
+    text-decoration: none;
+    border-radius: var(--border-radius-2);
+    display: inline-block;
+}
+
+input[type="search1"] {
+    padding: var(--padding-2);
+    width: 200px;
+    border-radius: var(--border-radius-2);
+    border: 1px solid var(--color-gray-light);
+    margin-left: 10px;
+}
+
+.controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.select-registros {
+    padding: var(--padding-2);
+    border-radius: var(--border-radius-2);
+    border: 1px solid var(--color-gray-light);
+}
+
+.acciones {
+    display: flex;
+    justify-content: center;
+}

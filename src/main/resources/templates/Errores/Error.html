@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Error</title>
+	<link rel="stylesheet" type="text/css" href="css/error.css" media="screen">     
+	<script type="text/javascript" src="js/animacion.js"></script>
+	<script type="text/javascript" src="js/animacion2.js"></script>
+</head>
+<body>
+	<div id="pre-loader" class="loader-container">
+		<div class="loader">
+			<div></div>
+			<div></div>
+		</div>
+	</div>
+	<div id="wrapper">>
+		<div id="mt-bluesky"></div>
+		<div id="mt-sun"></div>
+		<div id="mt-sun2"></div>
+		<div id="mt-cloud"></div>
+		<div id="mt-base"></div>
+		<div id="base-overlay"></div>
+		<div id="night"></div>
+		<div id="stars"></div>
+		<div id="sstar"></div>
+		<div id="moon"></div>
+		<div id="hock"></div>
+		<span id="title"><span>404</span></span>
+		<span id="oh">Oh no!</span>
+		<div class="txt">
+			<p>Algo salió mal :(</p>
+			<a href="#" class="btn">Go Home</a>
+		</div>
+	</div>
+	<script type="text/javascript" src="js/animacion.js"></script>
+		<script type="text/javascript" src="js/animacion2.js"></script>
+	<script type="text/javascript">
+$(function() {
+    $('#mt-sun').animate({'top':'96%','opacity':0.7}, 2400, function(){
+        $('#stars').animate({'opacity':1}, 1000, function(){
+            $('#moon').animate({'top':'10%','opacity':1}, 1200, function(){
+                $('#hock').animate({'bottom':'190px','opacity':1}, 600, function(){
+                    $('#hock').animate({'bottom':'49%'}, 400);
+                    $('#title').animate({'top':'44%','opacity':1}, 400);
+                    $('#sstar').animate({'opacity':0.8}, 60);
+                    $('#sstar').animate({'backgroundPosition':'0px 0px','top':'15%', 'opacity':0}, 60, function(){
+                        $('#ground-overlay').animate({'opacity':1}, 300);
+                        $('#title').animate({'top':'53%','opacity':1}, 400, function(){
+                            $('#oh').animate({'opacity':1}, 200);
+                            $('.txt').animate({'opacity':1}, 200);
+                        });
+                    });
+                });
+            });
+        });
+    });
+    $('#mt-sun').animate({'top':'96%','opacity':0.8}, 2400);
+    $('#mt-bluesky').animate({'backgroundColor':'#4F0030'}, 3600); 
+    $('#mt-cloud').animate({'backgroundPosition':'1000px 0px','opacity':0}, 6000);
+    $('#night').animate({'opacity':0.8}, 4000);
+    $('html').animate({'backgroundColor':'#1c2401'}, 4000);
+});
+
+	</script>
+
+	<div style="margin-left: 10%;">
+		<h3>Error Details</h3>
+		<ul>
+			<li>Status: <span th:text="${errorDetails['status']}"></span></li>
+			<li>Error: <span th:text="${errorDetails['error']}"></span></li>
+			<li>Message: <span th:text="${errorDetails['message']}"></span></li>
+			<li>Path: <span th:text="${errorDetails['path']}"></span></li>
+			<li>Timestamp: <span th:text="${#dates.format(errorDetails['timestamp'], 'yyyy-MM-dd HH:mm:ss')}"></span></li>
+		</ul>
+	</div>
+
+</body>
+</html>

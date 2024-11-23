@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+    <link th:href="@{/css/general.css}" rel="stylesheet" >
+	<link th:href="@{/css/edit.css}" rel="stylesheet" >
+	
+    <!-- Material de iconos -->
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp"
+      rel="stylesheet"/>
+
+    <!-- Google fonts popins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+
+    
+    <title>Inventario</title>
+</head>
+<body>
+  <div th:insert="~{administrador/template_home.html::header}"></div>
+  
+  <main>
+	<div th:insert="~{administrador/template_home.html::sidebar}"></div>
+	
+	
+	<section class="product-edit-section">
+	    <h2>Editar Producto</h2>
+	    <form class="product-edit-form" th:action="@{/productos/update}" method="POST" enctype="multipart/form-data">
+	        <input type="hidden" name="id" th:value="${producto.id}">
+
+	        <div class="edit-form-group">
+	            <label for="nombre">Nombre:</label>
+	            <input type="text" id="nombre" name="nombre" th:value="${producto.nombre}" required>
+	        </div>
+
+
+
+	        <div class="edit-form-group">
+	            <label for="precio">Precio:</label>
+	            <input type="number" id="precio" name="precio" step="0.01" th:value="${producto.precio}" required>
+	        </div>
+
+	        <div class="edit-form-group">
+	            <label for="talla">Talla</label>
+	            <select id="talla" name="talla" required>
+	                <option value="S" th:selected="${producto.talla == 'S'}">S</option>
+	                <option value="M" th:selected="${producto.talla == 'M'}">M</option>
+	                <option value="L" th:selected="${producto.talla == 'L'}">L</option>
+	                <option value="XL" th:selected="${producto.talla == 'XL'}">XL</option>
+	            </select>
+	        </div>
+
+	        <div class="edit-form-group">
+	            <label for="color">Color</label>
+	            <input type="text" id="color" name="color" th:value="${producto.color}" required>
+	        </div>
+
+<!--	        <div class="edit-form-group">-->
+<!--	            <label for="cantidad">Cantidad</label>-->
+<!--	            <input type="number" id="cantidad" name="cantidad" th:value="${producto.cantidad}" required>-->
+<!--	        </div>-->
+
+			<!--<div class="edit-form-group">
+				<label for="imagen">Imagen:</label>
+				<input type="file" id="img" name="img">
+			</div>
+
+			<div class="edit-form-group">
+				<label for="marca">Marca:</label>
+				<input type="text" id="marca" name="marca" required>
+			</div>
+
+			<div class="edit-form-group">
+				<label for="descuento">Descuento (%):</label>
+				<input type="number" id="descuento" name="descuento" step="0.01" min="0" max="100">
+			</div>-->
+
+			<div class="edit-form-group">
+				<label for="descripcion">Descripción:</label>
+				<textarea id="descripcion" name="descripcion" rows="3" required th:text="${producto.descripcion}"></textarea>
+			</div>
+
+
+			<div class="btn-update-container">
+			    <button type="submit" class="btn-update">Actualizar</button>
+			</div>
+	    </form>
+	</section>
+
+
+	</main>
+
+
+
+
+
+
+	<script th:src="@{/js/dashboard.js}"></script>
+	<script th:src="@{/js/modo-btn.js}"></script>
+
+
+
+</body>
+</html>

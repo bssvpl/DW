@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+    <link th:href="@{/css/general.css}" rel="stylesheet" >
+    <link th:href="@{/css/nuevoUsuario.css}" rel="stylesheet">
+	
+    <!-- Material de iconos -->
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp"
+      rel="stylesheet"/>
+
+    <!-- Google fonts popins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+
+    <title>Nuevo Pedido</title>
+    <script th:inline="javascript">
+        var prod = /*[[${productos}]]*/ [];
+    </script>
+    <script>
+        function agregarFilaProducto() {
+            var productosContainer = document.getElementById('productos-container');
+            var formRow = document.createElement('div');
+            formRow.className = 'form-row';
+
+            var formGroup = document.createElement('div');
+            formGroup.className = 'form-group';
+            formGroup.style.display = 'flex';
+            formGroup.style.alignItems = 'center';
+
+            var select = document.createElement('select');
+            select.name = 'id_producto';
+            select.required = true;
+
+            var defaultOption = document.createElement('option');
+            defaultOption.value = '';
+            defaultOption.disabled = true;
+            defaultOption.selected = true;
+            defaultOption.textContent = 'Seleccione un producto';
+            select.appendChild(defaultOption);
+
+            prod.forEach(function(producto) {
+                var option = document.createElement('option');
+                option.value = producto.id;
+                option.textContent = producto.nombre + ' - ' + producto.precio;
+                select.appendChild(option);
+            });
+
+            var inputCantidad = document.createElement('input');
+            inputCantidad.type = 'number';
+            inputCantidad.name = 'cantidad';
+            inputCantidad.placeholder = 'Cantidad';
+            inputCantidad.style.marginLeft = '10px';
+
+            formGroup.appendChild(select);
+            formGroup.appendChild(inputCantidad);
+            formRow.appendChild(formGroup);
+            productosContainer.appendChild(formRow);
+        }
+    </script>
+</head>
+<body>
+    <div th:insert="~{administrador/template_home.html::header}"></div>
+
+    <main>
+        <div th:insert="~{administrador/template_home.html::sidebar}"></div>
+
+        <section class="formulario">
+            <h2>Registrar Pedido</h2>
+            <form class="pedido-form" th:action="@{/pedidos/save}" method="POST" enctype="multipart/form-data">
+                <div class="form-row">
+                    <div class="form-column">
+                        <div class="form-group">
+                            <label for="id_usuario">ID Usuario</label>
+                            <input type="text" id="id_usuario" name="id_usuario" required>
+                        </div>
+                    </div>
+
+                    <div class="form-column">
+                        <div id="productos-container">
+                            <h3>Productos</h3>
+                            <div class="form-row">
+                                <div class="form-group" style="display: flex; align-items: center;">
+                                    <select id="id_producto" name="id_producto" required>
+                                        <option value="" disabled selected>Seleccione un producto</option>
+                                        <th:block th:each="producto : ${productos}">
+                                            <option th:value="${producto.id}" th:text="${producto.nombre} +' - '+ ${producto.precio}"></option>
+                                        </th:block>
+                                    </select>
+                                    <input type="number" class="inputC" name="cantidad" placeholder="Cantidad" style="margin-left: 10px;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    </div>
+                </div>
+
+                <div class="form-group btn-agregar-container">
+                    <button type="button" class="btn-agregar" onclick="agregarFilaProducto()">Agregar Producto</button>
+                </div>
+
+                <div class="form-group btn-crear-container">
+                    <button type="submit" class="btn-crear">Guardar</button>
+                </div>
+            </form>
+        </section>
+    </main>
+
+  <script th:src="@{/js/dashboard.js}"></script>
+  <script th:src="@{/js/modo-btn.js}"></script>
+</body>
+</html>

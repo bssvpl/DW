@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" >
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+	<!-- Stylesheet -->
+	<link 	th:href="@{/css/dashboard.css}" rel="stylesheet"  >
+	
+	<!-- Material de iconos -->
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp"
+      rel="stylesheet"/>
+    <!-- Google fonts popins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" >
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+
+    
+	
+    <title>Dashboard</title>
+  </head>
+  <body>
+	
+    <div th:insert="~{administrador/template_home.html::header}"></div>
+	
+    <main>
+		
+	<div th:insert="~{administrador/template_home.html::sidebar}"></div>
+		
+      <section class="middle">
+        <div class="header">
+          <h1>Ambiente General</h1>
+          <input type="date">
+        </div>
+      
+        <div class="cards">
+          <div class="card">
+            <div class="top">
+              <div class="left">
+                <img th:src="@{/imagesWeb/BTC.png}">
+                <h2><b> BCP </b></h2>
+              </div>
+              <img th:src="@{/imagesWeb/visa.png}" class="right">
+            </div>
+            <div class="middle">
+              <h1>S/455,534</h1>
+              <div class="chip">
+                <img th:src="@{/imagesWeb/card chip.png}">
+              </div>
+            </div>
+            <div class="bottom">
+              <div class="left">
+                <small>Credimas</small>
+                <h5><b>Compras</b></h5>
+              </div>
+              <div class="right">
+                <div class="expiry">
+                  <small>Expira</small>
+                  <h5>08/02/25</h5>
+                </div>
+                <div class="cvv">
+                  <small>CVV</small>
+                  <h5>123</h5>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- END OF CARD 1-->
+          <div class="card">
+            <div class="top">
+              <div class="left">
+                <img th:src="@{/imagesWeb/ETH.png}">
+                <h2>BBVA</h2>
+              </div>
+              <img th:src="@{/imagesWeb/master card.png}" class="right">
+            </div>
+            <div class="middle">
+              <h1>S/95,534</h1>
+              <div class="chip">
+                <img th:src="@{/imagesWeb/card chip.png}">
+              </div>
+            </div>
+            <div class="bottom">
+              <div class="left">
+                <small>Debito</small>
+                <h5><b>Black</b></h5>
+              </div>
+              <div class="right">
+                <div class="expiry">
+                  <small>Valida hasta</small>
+                  <h5>08/10/25</h5>
+                </div>
+                <div class="cvv">
+                  <small>CVV</small>
+                  <h5>453</h5>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- END OF CARD 2 -->
+          <div class="card">
+            <div class="top">
+              <div class="left">
+                <img th:src="@{/imagesWeb/BTC.png}">
+                <h2>Scotiabank</h2>
+              </div>
+              <img th:src="@{/imagesWeb/visa.png}" class="right">
+            </div>
+            <div class="middle">
+              <h1>S/25,534</h1>
+              <div class="chip">
+                <img th:src="@{/imagesWeb/card chip.png}">
+              </div>
+            </div>
+            <div class="bottom">
+              <div class="left">
+                <small>Propietario</small>
+                <h5><b>MisterPosh</b></h5>
+              </div>
+              <div class="right">
+                <div class="expiry">
+                  <small>Expira</small>
+                  <h5>06/18/25</h5>
+                </div>
+                <div class="cvv">
+                  <small>CVV</small>
+                  <h5>983</h5>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- END OF CARD 3 -->
+
+          <div class="card">
+            <div class="top">
+              <div class="left">
+                <img th:src="@{/imagesWeb/celu.svg}">
+                <h2>======YAPE=======</h2>
+              </div>
+              <!-- <img src="../pictures/visa.png" class="right"> -->
+            </div>
+            <div class="middle">
+              <h1>S/3,156</h1>
+              <!-- <div class="chip">
+                <img src="../pictures/card chip.png">
+              </div> -->
+            </div>
+            <!-- <div class="bottom">
+              <div class="left">
+                <small>Propietario</small>
+                <h5><b>MisterPosh</b></h5>
+              </div>
+              <div class="right">
+                <div class="expiry">
+                  <small>Expira</small>
+                  <h5>06/18/25</h5>
+                </div>
+                <div class="cvv">
+                  <small>CVV</small>
+                  <h5>983</h5>
+                </div>
+              </div>
+            </div> -->
+          </div>
+          <!-- END OF CARD 4 -->
+
+          <div class="card">
+            <div class="top">
+              <div class="left">
+                <img th:src="@{/imagesWeb/celu.svg}">
+                <h2>======PLIN=======</h2>
+              </div>
+              <!-- <img src="../pictures/visa.png" class="right"> -->
+            </div>
+            <div class="middle">
+              <h1>S/2,149</h1>
+              <!-- <div class="chip">
+                <img src="../pictures/card chip.png">
+              </div> -->
+            </div>
+            <!-- <div class="bottom">
+              <div class="left">
+                <small>Propietario</small>
+                <h5><b>MisterPosh</b></h5>
+              </div>
+              <div class="right">
+                <div class="expiry">
+                  <small>Expira</small>
+                  <h5>06/18/25</h5>
+                </div>
+                <div class="cvv">
+                  <small>CVV</small>
+                  <h5>983</h5>
+                </div>
+              </div>
+            </div> -->
+          </div>
+          <!-- END OF CARD 5 -->
+
+
+          <div class="card">
+            <div class="top">
+              <div class="left">
+                <img th:src="@{/imagesWeb/BTC.png}">
+                <h2>interbank</h2>
+              </div>
+              <img th:src="@{/imagesWeb/visa.png}" class="right">
+            </div>
+            <div class="middle">
+              <h1>S/6,820</h1>
+              <div class="chip">
+                <img th:src="@{/imagesWeb/card chip.png}">
+              </div>
+            </div>
+            <div class="bottom">
+              <div class="left">
+                <small>Propietario</small>
+                <h5><b>MisterPosh</b></h5>
+              </div>
+              <div class="right">
+                <div class="expiry">
+                  <small>Expira</small>
+                  <h5>12/06/26</h5>
+                </div>
+                <div class="cvv">
+                  <small>CVV</small>
+                  <h5>609</h5>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- END OF CARD 6 -->
+
+        </div>
+        <!-- END OF CARDS -->
+
+
+        <div class="monthly-report">
+          <div class="report">
+            <h3>Ingresos</h3>
+            <div>
+              <details>
+                <h1>S/29,023</h1>
+                <h6 class="success">+3.5%</h6>
+              </details>
+              <p class="text-muted">Comparado a S/26,89 
+                ultimo mes</p>
+            </div>
+          </div>
+          <!-- END OF INCOME REPORT -->
+          <div class="report">
+            <h3>Gastos</h3>
+            <div>
+              <details>
+                <h1>S/3,350</h1>
+                <h6 class="danger">-6.5%</h6>
+              </details>
+              <p class="text-muted">Comprado a S/4,000 
+                ultimo mes</p>
+            </div>
+          </div>
+          <!-- END OF EXPENSES REPORT -->
+          <div class="report">
+            <h3>Reembolsos</h3>
+            <div>
+              <details>
+                <h1>S/9,004</h1>
+                <h6 class="success">+7.1%</h6>
+              </details>
+              <p class="text-muted">Comparado a S/1,402 
+              utlimo mes</p>
+            </div>
+          </div>
+          <!-- END OF CASHBACK REPORT -->
+          <div class="report">
+            <h3>Turnover</h3>
+            <div>
+              <details>
+                <h1>S/118,190</h1>
+                <h6 class="danger">+3.5%</h6>
+              </details>
+              <p class="text-muted">Compared to S/53,89 
+                last mont </p>
+            </div>
+          </div>
+          <!-- END OF TURNOVER REPORT -->
+        </div>
+        <!-- END OF MONTLY REPORT -->
+
+         <div class="fast-payment">
+          <h2>Fast Payment</h2>
+          <div class="badges">
+            <div class="badge">
+              <span class="material-icons-sharp">add
+              </span> 
+            </div>
+
+            <div class="badge"><!--  -->
+              <span class="bg-primary"></span>
+              <div>
+                <h5>Internet</h5>
+                <h4>S/50</h4>
+              </div>
+            </div>
+
+            <div class="badge"><!--  -->
+              <span class="bg-success"></span>
+              <div>
+                <h5>Luz</h5>
+                <h4>S/40</h4>
+              </div>
+            </div>
+
+            <div class="badge">
+              <span class="bg-primary"></span>
+              <div>
+                <h5>Spotify</h5>
+                <h4>S/70</h4>
+              </div>
+            </div>
+
+            <div class="badge">
+              <span class="bg-danger"></span>
+              <div>
+                <h5>Alquiler</h5>
+                <h4>S/350</h4>
+              </div>
+            </div>
+
+            <!-- <div class="badge">
+              <span class="bg-primary"></span>
+              <div>
+                <h5>Education</h5>
+                <h4>S/999</h4>
+              </div>
+            </div>
+
+            <div class="badge">
+              <span class="bg-danger"></span>
+              <div>
+                <h5>Electricity</h5>
+                <h4>S/109</h4>
+              </div>
+            </div>
+
+            <div class="badge">
+              <span class="bg-success"></span>
+              <div>
+                <h5>Food</h5>
+                <h4>S/399</h4>
+              </div>
+            </div> -->
+          </div>
+         </div>
+         <!-- END OF FAST PAYMENT -->
+         <canvas id="chart"></canvas>
+      </section>
+
+
+
+      <!--ADICTOS A LA MODA  -->
+
+      <section class="right">
+        <div class="investments">
+          <div class="header">
+            <h2>Adictos a la moda</h2>
+            <a href="#">Mas<span> 
+              <span class="material-icons-sharp">chevron_right </span></a>
+          </div>
+
+          <div class="investment">
+            <img th:src="@{/imagesWeb/user1.jpg}">
+            <h4>Pedro Alv.</h4>
+            <div class="date-time">
+              <p>10 Sept, 2024</p>
+              <small class="text-muted">9:14pm</small> 
+            </div>
+            <div class="bonds">
+              <p>1020</p>
+              <small class="text-muted">Pedidos</small>
+            </div>
+            <div class="amount">
+              <h4>S/20,050</h4>
+            </div>
+          </div>
+          <!-- FIN ADICTO 1-->
+          <div class="investment">
+            <img th:src="@{/imagesWeb/user2.jpg}">
+            <h4>Jaime Rodr.</h4>
+            <div class="date-time">
+              <p>08 Sept, 2024</p>
+              <small class="text-muted">10:00am</small> 
+            </div>
+            <div class="bonds">
+              <p>1010</p>
+              <small class="text-muted">Pedidos</small>
+            </div>
+            <div class="amount">
+              <h4>S/19,230</h4>
+            </div>
+          </div>
+          <!--  FIN ADICTO 2-->
+
+          <div class="investment">
+            <img th:src="@{/imagesWeb/user3.jpg}">
+            <h4>Marcelo San.</h4>
+            <div class="date-time">
+              <p>03 Sept, 2024</p>
+            </div>
+            <div class="bonds">
+              <p>960</p>
+              <small class="text-muted">Pedidos</small>
+            </div>
+            <div class="amount">
+              <h4>S/19,200</h4>
+            </div>
+          </div>
+          <!--  FIN ADICTO 3-->
+
+
+            <div class="investment">
+            <img th:src="@{/imagesWeb/user4.jpg}">
+            <h4>Justin Bib.</h4>
+            <div class="date-time">
+              <p>1 Sept, 2024</p>
+              <small class="text-muted">3:20pm</small> 
+            </div>
+            <div class="bonds">
+              <p>902</p>
+              <small class="text-muted">Pedidos</small>
+            </div>
+            <div class="amount">
+              <h4>S/18,999</h4>
+            </div>
+          </div>
+          <!--  FIN ADICTO 4-->
+
+        </div>
+
+        <!--  ADVERTENCIA DE ESTOCK -->
+        <div class="recent-transactions">
+          <div class="header">
+            <h2>Advertencia Stock</h2>
+            <a href="#">More <span>
+              <span class="material-icons-sharp">chevron_right </span></a>
+          </div>
+
+
+          <div class="transaction">
+            <div class="service">
+              <div class="icon bg-danger-light">
+                <img th:src="@{/imagesWeb/polo.png}">
+              </div>
+              <div class="detail">
+                <h4>PL020</h4>
+                <p>21.02.2024</p>
+              </div>
+            </div>
+            <div class="card-details">
+              <div class="card bg-danger">
+                <span class="white material-symbols-outlined">
+                  inventory
+                  </span>
+              </div>
+              <div class="details">
+                <P><b>Stock Bajo</b></P>
+                <small class="text-muted">Stock Minimo: 10</small>
+              </div>
+            </div>
+            <h4>2 </h4>
+          </div>
+          <!-- END OF TRANSANTION -->
+
+          <div class="transaction">
+            <div class="service">
+              <div class="icon bg-secundary-light">
+                <img th:src="@{/imagesWeb/pantalon.png}">
+              </div>
+              <div class="detail">
+                <h4>PT011</h4>
+                <p>02.03.2024</p>
+              </div>
+            </div>
+            <div class="card-details">
+              <div class="card bg-secundary">
+                <span class="white material-symbols-outlined">
+                  inventory
+                  </span>
+              </div>
+              <div class="details">
+                <P><b>Stock Medio</b></P>
+                <small class="text-muted">Stock Minimo: 15</small>
+              </div>
+
+            </div>
+            <h4>7</h4>
+          </div>
+          <!-- END OF TRANSANTION -->
+
+          <div class="transaction">
+            <div class="service">
+              <div class="icon bg-danger-light">
+                <img th:src="@{/imagesWeb/chaqueta.png}">              
+              </div>
+              <div class="detail">
+                <h4>CH012</h4>
+                <p>19.04.2024</p>
+              </div>
+            </div>
+            <div class="card-details">
+              <div class="card bg-danger">
+                <span class="white material-symbols-outlined">
+                  inventory
+                  </span>
+              </div>
+              <div class="details">
+                <P><b>Stock Bajo</b></P>
+                <small class="text-muted">Stock Minimo: 20</small>
+              </div>
+
+            </div>
+            <h4>3</h4>
+          </div>
+          <!-- END OF TRANSANTION -->
+
+          <div class="transaction">
+            <div class="service">
+              <div class="icon bg-danger-light">
+                <img th:src="@{/imagesWeb/short.png}">              
+              </div>
+              <div class="detail">
+                <h4>SHT001</h4>
+                <p>10.02.2024</p>
+              </div>
+            </div>
+            <div class="card-details">
+              <div class="card bg-danger">
+                <span class="white material-symbols-outlined">
+                  inventory
+                  </span>
+              </div>
+              <div class="details">
+                <P><b>Stock Bajo</b></P>
+                <small class="text-muted">Stock Minimo: 15</small>
+              </div>
+
+            </div>
+            <h4>3</h4>
+          </div>
+          <!-- END OF TRANSANTION -->
+
+          <div class="transaction">
+            <div class="service">
+              <div class="icon bg-secundary-light">
+                <img th:src="@{/imagesWeb/polo.png}">              
+              </div>
+              <div class="detail">
+                <h4>SHT001</h4>
+                <p>10.02.2024</p>
+              </div>
+            </div>
+            <div class="card-details">
+              <div class="card bg-secundary">
+                <span class="white material-symbols-outlined">
+                  inventory
+                  </span>
+              </div>
+              <div class="details">
+                <P><b>Stock Medio</b></P>
+                <small class="text-muted">Stock Minimo: 20</small>
+              </div>
+
+            </div>
+            <h4>8</h4>
+          </div>
+          <!-- END OF TRANSANTION -->
+
+          <div class="transaction">
+            <div class="service">
+              <div class="icon bg-danger-light">
+                <img th:src="@{/imagesWeb/polera.png}">              
+              </div>
+              <div class="detail">
+                <h4>PLE020</h4>
+                <p>23.06.2024</p>
+              </div>
+            </div>
+            <div class="card-details">
+              <div class="card bg-danger">
+                <span class="white material-symbols-outlined">
+                  inventory
+                  </span>
+              </div>
+              <div class="details">
+                <P><b>Stock Bajo</b></P>
+                <small class="text-muted">Stock Minimo: 15</small>
+              </div>
+
+            </div>
+            <h4>2</h4>
+          </div>
+          <!-- END OF TRANSANTION -->
+        </div>
+        <!-- =================END OF RECENT TRANSACTIONS=================================== -->
+      </section>
+      <!--  END RIGHT -->
+        
+    </main>
+    <!-- ===================END OF ASIDE==================== -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.0/chart.min.js" 
+    integrity="sha512-GMGzUEevhWh8Tc/njS0bDpwgxdCJLQBWG3Z2Ct+JGOpVnEmjvNx6ts4v6A2XJf1HOrtOsfhv3hBKpK9kE5z8AQ==" crossorigin="
+    anonymous" referrerpolicy="no-referrer"></script>
+
+    <script th:src="@{js/dashboard.js}"></script>
+    <script th:src="@{js/modo-btn.js}"></script>
+  </body>
+</html>

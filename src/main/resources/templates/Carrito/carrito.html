@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metodo de envio</title>
+    <link th:href="@{/css/bag.css}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+</head>
+<body>
+    <div th:if="${mensaje != null}">
+        <p th:text="${mensaje}"></p>
+    </div>
+    <div id="guestModal" class="modal hidden">
+        <div class="modal-content">
+            <h3>¿Desea continuar como invitado?</h3>
+            <div class="modal-buttons">
+                <button onclick="continueAsGuest()" class="modal-btn yes">Sí</button>
+                <button onclick="redirectToLogin()" class="modal-btn no">No</button>
+            </div>
+        </div>
+    </div>    
+    <header class="header-navegacion">
+        <div class="logo">
+            <img src="/imagesWeb/LogoOficial.png" alt="logo" id="logo-img">
+        </div>
+        <div class="header-title">
+            <h1>Metodo de entrega</h1>
+        </div>
+    </header>
+
+    <div class="contenedor-principal">
+        <nav class="barra-de-navegacion">
+            <ul class="items">
+                <li><a href="#"><i class="fas fa-home icon" alt="Inicio"></i></a></li>
+                <li><a href="#"><i class="fas fa-store icon icon-black" alt="Tienda"></i></a></li>
+                <li><a href="#"><i class="far fa-user icon" alt="Usuario"></i></a></li>
+                <li><a href="#"><i class="far fa-bell icon" alt="Notificaciones"></i></a></li>
+                <li><a href="#"><i class="far fa-thumbs-up icon" alt="Me gusta"></i></a></li>
+                <div class="divider"></div>
+                <li>
+                    <button class="logout-btn">
+                        <i class="fas fa-sign-out-alt" style="transform: rotate(180deg);" alt="Salir"></i> <!-- Ícono de salir rotado a la derecha -->
+                    </button>
+                </li>
+                <li>
+                    <button class="logout-btn">
+                        <span class="icon-circle">
+                            <i class="fas fa-user" alt="Usuario"></i> 
+                        </span>
+                    </button>
+                </li>
+            </ul>
+        </nav>
+
+        <main class="productos">
+            <div class="delivery-options">
+                <div class="option-card" data-option="pickup" onclick="toggleForm('pickup')">
+                    <P>RECOJO EN TIENDA</P>
+                </div>
+                <div class="option-card" data-option="delivery" onclick="toggleForm('delivery')">
+                    <P>DELIVERY</P>
+                </div>
+            </div>
+
+            <div id="pickupForm" class="hidden">
+                <form class="guest-form" data-form="pickup" id="pickupFormData">
+                    <p class="welcome-text">Las horas de atención son de 10:00 a 22:00. Tan solo identifícate con tu DNI. Te atenderemos a la brevedad.</p>
+                    <div class="form-group">
+                        <label for="pickup-nombre">Nombre</label>
+                        <input type="text" id="pickup-nombre" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="pickup-apellidos">Apellidos</label>
+                        <input type="text" id="pickup-apellidos" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="pickup-dni">DNI</label>
+                        <input type="text" id="pickup-dni" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="pickup-telefono">Teléfono</label>
+                        <input type="tel" id="pickup-telefono">
+                    </div>
+                    <div class="form-group">
+                        <label for="pickup-email">Correo electrónico</label>
+                        <input type="email" id="pickup-email">
+                    </div>
+                </form>
+            </div>
+
+            <div id="deliveryForm" class="hidden">
+                <form class="guest-form" data-form="delivery" id="deliveryFormData">
+                    <div class="form-group">
+                        <label for="delivery-dni">DNI*</label>
+                        <input type="text" id="delivery-dni" maxlength="8" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="delivery-nombre">Nombre*</label>
+                        <input type="text" id="delivery-nombre" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="delivery-apellidos">Apellidos*</label>
+                        <input type="text" id="delivery-apellidos" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="delivery-direccion">Dirección de entrega*</label>
+                        <input type="text" id="delivery-direccion" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="delivery-telefono">Teléfono*</label>
+                        <input type="tel" id="delivery-telefono" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="delivery-email">Correo electrónico*</label>
+                        <input type="email" id="delivery-email" required>
+                    </div>
+                </form>
+            </div>
+        </main>
+
+        <!-- Reemplazar el aside actual por este nuevo contenedor -->
+        <div class="summary">
+            <aside class="resumen">
+                <h2>Resumen de Compra</h2>
+                <div class="summary-content">
+                    <div class="sbt">
+                        <span>Subtotal:</span>
+                        <span></span>
+                    </div>
+                    <div class="dscto">
+                        <span>Descuento:</span>
+                        <span class="discount"></span>
+                    </div>
+                    <div class="total">
+                        <span>Total:</span>
+                        <span></span>
+                    </div>
+                </div>
+                <div class="contenedor">
+                    <form th:action="@{/vistausuario/pago}" method="post">
+                        <button class="buy">Finalizar compra</button>
+                    </form>
+                </div>
+            </aside>
+        
+            <aside class="more">
+                <p>Si necesitas ayuda con tu compra, escribenos por 
+                    <a href="https://wa.me/51912684697" class="whatsapp-link">WhatsApp al 912684697</a> 
+                    o llamanos al <span class="phone">(01) 601 4000</span>
+                </p>
+            </aside>
+        </div>
+    </div>   
+
+  
+
+    <script>
+        function toggleForm(option) {
+            // Oculta ambos formularios
+            document.getElementById('pickupForm').classList.add('hidden');
+            document.getElementById('deliveryForm').classList.add('hidden');
+
+            // Remueve la clase 'selected' de ambas opciones
+            document.querySelectorAll('.option-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+
+            // Muestra el formulario correspondiente y resalta la opción seleccionada
+            if (option === 'pickup') {
+                document.getElementById('pickupForm').classList.remove('hidden');
+                document.querySelector('.option-card[data-option="pickup"]').classList.add('selected');
+            } else if (option === 'delivery') {
+                document.getElementById('deliveryForm').classList.remove('hidden');
+                document.querySelector('.option-card[data-option="delivery"]').classList.add('selected');
+            }
+        }
+
+        function continueAsGuest() {
+    console.log("Cerrando el modal...");  // Verifica si se ejecuta la función
+    document.getElementById('guestModal').classList.add('hidden'); // Esconde el modal
+    window.location.href = '/vistausuario/carrito'; // Redirige a la página del carrito
+}
+
+
+        function redirectToLogin() {
+            document.getElementById('guestModal').classList.add('hidden');
+            window.location.href = '/login';
+        }
+
+        function checkUserAndProceed() {
+    const userElement = document.getElementById('UserConnected');
+    const isGuest = userElement.textContent === 'Guest';
+    
+    if (isGuest) {
+        document.getElementById('guestModal').classList.remove('hidden');
+    } else {
+        // Si es usuario registrado, autorellenar formularios y proceder
+        autofillFormsAndSubmit();
+    }
+}
+
+function autofillFormsAndSubmit() {
+    // Función para autorellenar formularios con datos del usuario
+    fetch('/api/user-data')
+        .then(response => response.json())
+        .then(userData => {
+            const activeForm = document.querySelector('.guest-form:not(.hidden)');
+            if (activeForm) {
+                if (activeForm.dataset.form === 'pickup') {
+                    // Rellenar el formulario de recogida
+                    document.getElementById('pickup-nombre').value = userData.nombre;
+                    document.getElementById('pickup-apellidos').value = userData.apellidos;
+                    document.getElementById('pickup-dni').value = userData.dni;
+                    document.getElementById('pickup-telefono').value = userData.telefono;
+                    document.getElementById('pickup-email').value = userData.correo;
+                } else {
+                    // Rellenar el formulario de entrega
+                    document.getElementById('delivery-nombre').value = userData.nombre;
+                    document.getElementById('delivery-apellidos').value = userData.apellidos;
+                    document.getElementById('delivery-dni').value = userData.dni;
+                    document.getElementById('delivery-direccion').value = userData.direccion;
+                    document.getElementById('delivery-telefono').value = userData.telefono;
+                    document.getElementById('delivery-email').value = userData.correo;
+                }
+            }
+            // Proceder con el envío del formulario o redirección
+            window.location.href = '/vistausuario/carrito';
+        })
+        .catch(error => {
+            console.error("Error al obtener los datos del usuario:", error);
+        });
+}
+
+    </script>
+
+</body>
+</html>

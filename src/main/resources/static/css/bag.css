@@ -1,0 +1,1198 @@
+.barra-de-navegacion li {
+    margin-bottom: 10px; /* Separación de 20px entre los elementos de la lista */
+}
+
+.contenedor { /* Asegúrate de que este sea el contenedor que envuelve el botón */
+    display: flex;
+    flex-direction: column; /* Alinea los elementos en columna */
+    height: 100%; /* Asegúrate de que el contenedor tenga una altura definida */
+    margin-bottom: 70PX;
+}
+
+body {
+    background-color: #E8E8E8;
+    font-family: sans-serif;
+}
+
+
+.logo img {
+    width: 50px; /* Ajusta el tamaño del logo a 70px */
+    height: 50px; /* Ajusta la altura del logo a 70px */
+    border-radius: 50%; /* Hace que la imagen sea circular */
+    border: 15px solid #0A5EFC; /* Borde azul de 18px */
+    object-fit: cover; /* Asegura que la imagen se ajuste correctamente */
+}
+
+.header-navegacion {
+    display: flex;
+    align-items: center; /* Alinea verticalmente el logo y la barra de navegación */
+    height: 100px;
+    padding: 10px 10px;
+    margin-bottom: -10px;
+}
+
+.header-title {
+    display: flex;
+    flex-direction: column; /* Coloca los elementos en columna */
+    margin-left: 30px; /* Separación de 30px entre el logo y el título */
+
+}
+
+.order-container {
+    display: flex; /* Utiliza flexbox para alinear los elementos */
+    justify-content: space-between; /* Separa los elementos de extremo a extremo */
+    width: 100%; /* Asegura que ocupe todo el ancho disponible */
+    margin-top: 10px; /* Espacio entre el título y el contenedor de órdenes */
+}
+
+.contenedor-principal {
+    display: grid;
+    grid-template-columns: 60px 1fr 330px; /* Define las columnas */
+    height: 100vh; /* Altura total de la ventana */
+    gap: 30px; /* Espacio entre columnas */
+    padding: 20px;
+    
+}
+
+.barra-de-navegacion {
+    width: 60px; /* Ancho de la barra de navegación */
+    display: flex;
+    flex-direction: column; /* Alinea los elementos en columna */
+    align-items: center; /* Alinea horizontalmente los elementos al centro */
+    background-color: white; /* Asegúrate de que el fondo sea blanco */
+    border-radius: 30px;
+    border-color: #000;
+    box-shadow: 6px 4px 10px rgba(0, 0, 0, 0.2); 
+    height: calc(85vh + 40px);
+    /* Sombra para dar un efecto de profundidad */
+}
+
+.productos {
+    background-color: rgb(255, 255, 255);
+    padding: 0;
+    border-radius: 25px;
+    box-shadow: 5px 5px 4px 2px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    height: calc(85vh - 40px);
+    display: flex;
+    flex-direction: column;
+    width: 100%; /* Ajusta el ancho para tener en cuenta los márgenes */
+    margin: 0 auto; /* Centra el contenedor */
+    margin-bottom: 20px; /* Separación de 20px entre productos y resumen */
+    margin-top: 0px; /* Separación de 20px entre la barra de navegación y productos */
+}
+.summary {
+    display: flex;
+    flex-direction: column;
+    margin-top: 0px; /* Sin separación superior */
+    width: auto; /* Ancho automático */
+    height: calc(85vh - 40px); /* Igualar la altura al contenedor de productos */
+}
+
+.resumen {
+    background-color: white; /* Color de fondo blanco para el contenedor de resumen */
+    border-radius: 25px; /* Redondear las esquinas */
+    padding: 15px; /* Espaciado interno */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra para el contenedor */
+    
+}
+
+.more {
+    background: #c8d6ee; /* Color de fondo azul para el contenedor "more" */
+    border-radius: 25px; /* Redondear las esquinas */
+    padding: 15px; /* Espaciado interno */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra para el contenedor */
+    margin-top: 20px; /* Separación de 20px entre resumen y more */
+    
+
+}
+
+.items {
+    
+    display: flex; /* Utiliza flexbox para alinear los elementos */
+    flex-direction: column; /* Cambia la dirección a columna */
+    align-items: center; /* Alinea horizontalmente los elementos al centro */
+    list-style: none; /* Elimina los puntos de la lista */
+    padding: 0; /* Elimina el padding de la lista */
+    margin: 0; /* Elimina el margen de la lista */
+}
+
+.items li {
+    margin-top: 20px;
+    font-size: 22px;
+/* Espacio de 20px entre los íconos */
+    
+}
+
+.items li:last-child {
+    margin-bottom: 20px; /* Espacio de 20px debajo del último ítem */
+}
+
+.logo {
+    margin-bottom: -20px; /* Separación de 10px entre el logo y la barra de navegación */
+}
+
+.order {
+    margin-left: auto; /* Empuja "Seguir comprando" al extremo derecho */
+}
+
+
+.product-info {
+    display: flex; /* Utiliza flexbox para alinear los elementos */
+    flex-direction: column; /* Alinea los elementos en columna */
+    align-items: flex-start; /* Alinea los elementos al inicio (izquierda) */
+    gap: 5px; /* Espacio entre los elementos (opcional) */
+}
+.borrar {
+    display: flex; /* Utiliza flexbox para alinear la imagen y el texto */
+    align-items: center; /* Alinea verticalmente la imagen y el texto */
+/* Reduce el espacio a la izquierda del botón "Eliminar" */
+}
+
+.product-image {
+    width: 130px; /* Ancho de la imagen */
+    height: 120px; /* Alto de la imagen */
+    object-fit: cover; /* Asegura que la imagen se ajuste a las dimensiones sin distorsionarse */
+    margin-right: 10px; /* Espacio entre la imagen y el texto */
+}
+
+.btn-borrar {/* Ajusta el padding del botón según sea necesario */
+    text-align: center; /* Alinea el texto del botón al centro */
+}
+
+table {
+    width: 100%; /* Asegúrate de que la tabla ocupe todo el ancho del contenedor */
+    border-collapse: collapse; /* Colapsa los bordes de la tabla */
+    margin: 0; /* Elimina el margen de la tabla */
+    padding: 0; /* Elimina el padding de la tabla */
+}
+
+
+th, td {
+
+    padding: 10px; /* Espaciado interno para las celdas */
+    text-align: left; /* Alineación del texto a la izquierda */
+    text-align: center; /* Centra el texto horizontalmente */
+    vertical-align: middle;
+}
+
+th {
+    background-color: #f2f2f2; /* Color de fondo para los encabezados */
+}
+
+/* Ajustar el ancho de las columnas */
+th:nth-child(1) { /* Producto */
+    width: 60%; /* Ancho del 60% para la columna de Producto */
+}
+
+th:nth-child(2) { /* Precio */
+    width: 9%; /* Ancho del 9% para Precio */
+}
+
+th:nth-child(3) { /* Cantidad */
+    width: 12%; /* Ancho del 15% para Cantidad */
+}
+
+th:nth-child(4) { /* Total */
+    width: 9%; /* Ancho del 9% para Total */
+}
+
+th:nth-child(5) { /* Columna vacía */
+    width: 10%; /* Ancho del 7% para la columna vacía */
+}
+
+td {
+    vertical-align: middle; /* Alinea verticalmente el contenido de las celdas */
+    padding: 5px; /* Reduce el padding para acercar las celdas */
+}
+
+td.borrar {
+    display: flex; /* Asegura que el botón "Eliminar" esté alineado */
+    align-items: center; /* Alinea verticalmente el botón */
+}
+
+.btn-borrar i {
+    font-size: 20px; /* Ajusta el tamaño del ícono según sea necesario */
+}
+.divider {
+    display: none; /* Oculta la línea divisoria por defecto */
+}
+
+.items i {
+    color: black; /* Cambia el color de todos los íconos a negro */
+}
+.summary h2 {
+    font-size: 17px;
+    margin-bottom: 0;
+    padding: 15px;
+
+    color: #0156FC;
+    text-align: COLUMN;
+    box-shadow: 5px 5px 4px 2px rgba(0, 0, 0, 0.1);
+
+
+}
+.resumen h2 {
+    border-top-left-radius: 15px; /* Redondear esquina superior izquierda */
+    border-top-right-radius: 15px; /* Redondear esquina superior derecha */
+    background-color: #c8d6ee; /* Color de fondo del encabezado */
+    padding: 15px; /* Espaciado interno */
+    margin: 0; /* Sin margen */
+}
+
+
+
+.sbt .dscto {
+display: flex;
+justify-content: space-between;
+margin: 8px 0;
+font-weight: bold;
+
+}
+.resumen {
+padding: 0px 0px; /* Reduce el padding para hacer el contenido más pequeño */
+display: flex;
+flex-direction: column;
+
+flex: 0 0 77%; /* 75% de la altura total del contenedor */
+
+}
+
+th {
+    background-color: #c8d6ee; /* Color de fondo del encabezado de la tabla */
+    color: #0156FC; /* Color del texto del encabezado */
+    padding: 15px; /* Espaciado interno */
+    text-align: left; /* Alineación del texto a la izquierda */
+
+
+     /* Sombra para el encabezado */
+    
+
+}
+.header-title h1 {
+    color: #0A5EFC;
+    font-size: 26px;
+    margin: 0;
+    font-weight: 800; /* Aumenta el peso de la fuente */
+}
+
+.quantity-container {
+    display: flex; /* Utiliza flexbox para alinear los elementos */
+    align-items: center; /* Alinea verticalmente al centro */
+    justify-content: center; /* Centra horizontalmente */
+    background-color: #dfdfdf; 
+}
+
+.quantity-btn {
+    background-color: #dfdfdf; /* Color de fondo gris */
+    border: none; /* Sin borde */
+    /* Espaciado interno reducido */
+    cursor: pointer; /* Cambia el cursor al pasar el mouse */
+    font-size: 15px; /* Tamaño de fuente reducido */
+    color: #000; /* Color del texto */
+}
+
+.quantity-input {
+    width: 70px; /* Ancho del campo de entrada reducido */
+    text-align: center; /* Centra el texto dentro del campo */
+    border: none; /* Sin borde */
+    background-color: #dfdfdf; /* Color de fondo gris */
+    color: #000; /* Color del texto */
+    margin: 0 5px; /* Espacio entre el botón y el campo reducido */
+    outline: none; /* Elimina el contorno al hacer clic */
+    font-size: 15px; /* Tamaño de fuente reducido */
+    -moz-appearance: textfield; /* Para Firefox */
+    appearance: textfield; /* Para otros navegadores */
+}
+
+.quantity-input::-webkit-inner-spin-button,
+.quantity-input::-webkit-outer-spin-button {
+    -webkit-appearance: none; /* Oculta los botones de incremento y decremento en Chrome/Safari */
+    margin: 0; /* Elimina el margen */
+}
+
+.cantidad {
+    padding: 5px; /* Reduce el padding de la celda */
+    margin-right: 0; /* Asegúrate de que no haya margen a la derecha */
+}
+
+.icon-container {
+    display: flex; /* Asegura que el ícono esté centrado */
+    align-items: center; /* Alinea verticalmente al centro */
+    justify-content: center; /* Centra horizontalmente */
+}
+
+.precio {
+    color: #0A5EFC; /* Color azul para el texto del precio */
+    font-weight: bold; /* Opcional: hace que el texto sea negrita */
+}
+
+/* Estilo para las columnas de Precio, Cantidad y Total */
+th.precio, th.cantidad, th.total,
+td.precio, td.cantidad, td.total {
+    width: 130px; /* Ajusta este valor según sea necesario */
+    text-align: center; /* Centra el texto en las celdas */
+}
+
+th, td {
+    text-align: center; /* Centra el texto en las celdas */
+}
+
+.contenedor-producto {
+    margin-left: 30px; /* Margen izquierdo */
+    margin-right: 30px; /* Margen derecho */
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+tbody {
+    margin-top: 20px; /* Margen superior de 20px */
+    position: relative; /* Necesario para posicionar el pseudo-elemento */
+}
+
+tbody::after {
+    content: ""; /* Necesario para mostrar el pseudo-elemento */
+    display: block; /* Hace que el pseudo-elemento se comporte como un bloque */
+    width: calc(100% - 60px); /* Ancho de la línea, restando los márgenes */
+    height: 1px; /* Altura de la línea */
+    background-color: rgb(228, 228, 228); /* Color de la línea */
+    margin: 10px 30px; /* Margen superior de 10px y márgenes izquierdo y derecho de 30px */
+    position: absolute; /* Posiciona el pseudo-elemento */
+    bottom: -10px; /* Coloca la línea justo debajo del tbody */
+}
+
+.sbt, .dscto, .total {
+    margin-left: 30px; /* Margen izquierdo de 30px */
+    margin-right: 30px; /* Margen derecho de 30px */
+    font-size: 0.9em;
+    font-weight: bold;
+}
+
+.sbt span, .dscto span {
+    color: black; /* Color negro para subtotal y descuento */
+
+    
+
+}
+
+.total span {
+    color: #0A5EFC; /* Color azul para total */
+
+    font-weight: bold;
+}
+
+.summary-content{
+margin-top: 20px;
+
+}
+
+.sbt, .dscto {
+    margin-top: 10px; /* Margen superior de 20px */
+    margin-bottom: 20px;
+}
+.total{
+    margin-top: 40px; /* Margen superior de 20px */
+}
+.dscto {
+    position: relative; /* Necesario para posicionar el pseudo-elemento */
+}
+
+.dscto::after {
+    content: ""; /* Necesario para mostrar el pseudo-elemento */
+    display: block; /* Hace que el pseudo-elemento se comporte como un bloque */
+    width: 100%; /* Ancho de la línea */
+    height: 1px; /* Altura de la línea */
+    background-color: rgb(228, 228, 228);
+    position: absolute; /* Posiciona el pseudo-elemento */
+    bottom: -20px; /* Coloca la línea justo debajo del contenedor de descuento */
+}
+
+
+
+.buy {
+    margin-top: auto; /* Empuja el botón hacia el final del contenedor */
+    background-color: #0A5EFC; /* Color de fondo azul */
+    color: white; /* Color del texto en blanco para mejor contraste */
+    border: none; /* Sin borde */
+    padding: 10px 20px; /* Espaciado interno */
+    border-radius: 25px; /* Bordes redondeados */
+    cursor: pointer; /* Cambia el cursor al pasar el mouse */
+    font-size: 16px; /* Tamaño de fuente */
+    margin-left: 30px;
+    font-weight: bold;
+    margin-right: 30px;
+    font-size: 14px;
+
+}
+
+.buy:hover {
+    background-color: #0056b3; /* Color más oscuro al pasar el mouse */
+}
+
+.logout-btn {
+    background-color: transparent; /* Fondo transparente por defecto */
+    border: none; /* Sin borde */
+    cursor: pointer; /* Cambia el cursor al pasar el mouse */
+    display: flex; /* Asegura que el ícono esté centrado */
+    align-items: center; /* Alinea verticalmente al centro */
+    justify-content: center; /* Centra horizontalmente */
+    width: 40px; /* Ancho fijo para igualar el tamaño de los íconos */
+    height: 40px; /* Alto fijo para igualar el tamaño de los íconos */
+    transition: background-color 0.3s; /* Transición suave para el cambio de color */
+    
+}
+
+.logout-btn:hover {
+    background-color: black; /* Cambia el fondo a negro al pasar el mouse */
+    border-radius: 5px; /* Bordes redondeados (opcional) */
+    color: white;
+}
+
+.logout-btn i {
+    font-size: 22px; /* Asegúrate de que el tamaño del ícono sea consistente */
+}
+
+.icon {
+    display: inline-block; /* Asegura que el ícono se comporte como un bloque */
+    transition: background-color 0.3s; /* Transición suave para el cambio de color */
+    padding: 7px; /* Espaciado interno para el área clickeable */
+    border-radius: 5px; /* Bordes redondeados (opcional) */
+    
+}
+
+.icon:hover {
+    background-color: black; /* Cambia el fondo a negro al pasar el mouse */
+    color: white; /* Cambia el color del ícono a blanco para mejor contraste */
+
+}
+.whatsapp-link {
+    color: #0156FC;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.phone {
+    color: #0156FC;
+    font-weight: bold;
+}
+
+
+/* Media query para pantallas más altas que anchas */
+@media (min-width: 769px) {
+.header-navegacion {
+    display: flex;
+    align-items: center; /* Alinea verticalmente el logo y la barra de navegación */
+    height: 100px;
+    padding: 10px 10px;
+    margin-bottom: -10px;
+}
+
+.header-title {
+    display: flex;
+    flex-direction: column; /* Coloca los elementos en columna */
+    margin-left: 30px; /* Separación de 30px entre el logo y el título */
+   
+}
+
+.order-container {
+    display: flex; /* Utiliza flexbox para alinear los elementos */
+    justify-content: space-between; /* Separa los elementos de extremo a extremo */
+    width: 100%; /* Asegura que ocupe todo el ancho disponible */
+    margin-top: 10px; /* Espacio entre el título y el contenedor de órdenes */
+}
+
+.contenedor-principal {
+    display: grid;
+    grid-template-columns: 60px 1fr 330px; /* Define las columnas */
+    height: 100vh; /* Altura total de la ventana */
+    gap: 30px; /* Espacio entre columnas */
+    padding: 20px;
+}
+
+.barra-de-navegacion {
+    width: 60px; /* Ancho de la barra de navegación */
+    display: flex;
+    flex-direction: column; /* Alinea los elementos en columna */
+    align-items: center; /* Alinea horizontalmente los elementos al centro */
+    background-color: white; /* Asegúrate de que el fondo sea blanco */
+    border-radius: 30px;
+    border-color: #000;
+    box-shadow: 6px 4px 10px rgba(0, 0, 0, 0.2); 
+    height: calc(85vh + 40px);
+}
+}
+
+/* Estilos generales para pantallas pequeñas */
+@media (max-width: 768px) {
+.header-navegacion {
+    flex-direction: column; /* Cambia a columna en pantallas pequeñas */
+    align-items: flex-start; /* Alinea los elementos al inicio (izquierda) */
+    height: auto; /* Permite que la altura se ajuste automáticamente */
+}
+
+.logo {
+    margin-bottom: 10px; /* Espacio entre el logo y la barra de navegación */
+}
+
+.barra-de-navegacion {
+    width: 100%; /* Ancho completo en pantallas pequeñas */
+    height: auto; /* Permite que la altura se ajuste automáticamente */
+    flex-direction: row; /* Alinea los elementos en fila */
+    justify-content: space-around; /* Espacio entre los elementos de la barra */
+    padding: 10px 0; /* Espaciado vertical */
+}
+
+.barra-de-navegacion ul {
+    display: flex; /* Utiliza flexbox para alinear los elementos */
+    flex-direction: row; /* Alinea los elementos en fila */
+    align-items: center; /* Alinea verticalmente los elementos al centro */
+    list-style: none; /* Elimina los puntos de la lista */
+    padding: 0; /* Elimina el padding de la lista */
+    margin: 0; /* Elimina el margen de la lista */
+}
+
+.barra-de-navegacion li {
+    margin: 0 10px; /* Espacio horizontal entre los elementos */
+    font-size: 18px; /* Ajusta el tamaño de la fuente para pantallas pequeñas */
+}
+
+.header-title {
+    margin-left: 0; /* Elimina el margen izquierdo */
+    margin-top: 10px; /* Espacio superior para el título */
+}
+
+.order-container {
+    flex-direction: column; /* Coloca los elementos en columna */
+    align-items: flex-start; /* Alinea los elementos al inicio (izquierda) */
+}
+
+.order-count, .order {
+    font-size: 14px; /* Ajusta el tamaño de la fuente para pantallas pequeñas */
+}
+
+.contenedor-principal {
+    grid-template-columns: 1fr; /* Cambia a una sola columna en pantallas pequeñas */
+    padding: 10px; /* Reduce el padding */
+}
+
+.productos {
+    margin: 10px 0; /* Espacio entre productos y otros elementos */
+}
+
+.summary {
+    margin-top: 10px; /* Espacio superior para el resumen */
+}
+
+.product-image {
+    width: 100px; /* Ajusta el tamaño de la imagen en pantallas pequeñas */
+    height: auto; /* Mantiene la proporción de la imagen */
+}
+
+.buy {
+    width: 100%; /* Botón ocupa todo el ancho en pantallas pequeñas */
+    margin: 10px 0; /* Espacio vertical para el botón */
+}
+
+table {
+    width: 100%; /* Asegúrate de que la tabla ocupe todo el ancho del contenedor */
+    border-collapse: collapse; /* Colapsa los bordes de la tabla */
+}
+
+th, td {
+    padding: 10px; /* Espaciado interno para las celdas */
+    text-align: center; /* Centra el texto en las celdas */
+    
+}
+
+
+.divider {
+    display: block; /* Muestra la línea divisoria en pantallas pequeñas */
+    width: 100%; /* Ancho completo */
+    height: 2px; /* Altura de la línea */
+    background-color: #ccc; /* Color de la línea */
+    margin: 10px 0; /* Espacio vertical alrededor de la línea */
+}
+}
+
+@media (max-width: 768px) {
+th {
+    font-size: 10px; /* Ajusta el tamaño de la fuente para pantallas pequeñas */
+    padding: 5px; /* Reduce el espaciado interno para pantallas pequeñas */
+
+}
+td {
+    font-size: 10px; /* Ajusta el tamaño de la fuente para pantallas pequeñas */
+    padding: 1px; /* Reduce el espaciado interno para pantallas pequeñas */
+}
+.product-image {
+    width: 40px; /* Reduce el tamaño de la imagen en pantallas pequeñas */
+}
+}
+
+@media (max-width: 768px) {
+
+
+.quantity-container {
+    display: flex; /* Asegúrate de que los botones y el input estén en línea */
+    justify-content: center; /* Centra los elementos */
+}
+
+.quantity-input {
+    width: 5px; /* Ajusta el ancho del input de cantidad */
+    text-align: center; /* Centra el texto dentro del input */
+}
+}
+@media (max-width: 768px) {
+.more p {
+    font-size: 12px; /* Tamaño de fuente más pequeño en pantallas pequeñas */
+}
+
+.more a {
+    font-size: 12px; /* Asegúrate de que el tamaño del enlace también sea más pequeño */
+}
+
+.more .phone {
+    font-size: 12px; /* Asegúrate de que el tamaño del número de teléfono también sea más pequeño */
+}
+}
+@media (max-width: 768px) {
+.resumen h2 {
+    font-size: 15px; /* Tamaño de fuente más pequeño en pantallas pequeñas */
+}
+
+.resumen .summary-content {
+    font-size: 13px; /* Tamaño de fuente más pequeño para el contenido en pantallas pequeñas */
+}
+
+
+
+.buy {
+    width: 100%; /* Botón ocupa todo el ancho en pantallas pequeñas */
+    margin-top: 10px; /* Espacio superior para el botón */
+}
+}
+
+/* Estilos generales para el botón */
+
+/* Estilos para pantallas pequeñas */
+@media (max-width: 768px) {
+.buy {
+   
+    width: 150%; /* Botón ocupa todo el ancho en pantallas pequeñas */
+    padding: 10px; /* Reduce el espaciado interno */
+    font-size: 13px; /* Tamaño de fuente más pequeño en pantallas pequeñas */
+}
+}
+.contenedor {
+display: flex; /* Utiliza flexbox para alinear los elementos */
+justify-content: center; /* Centra horizontalmente el contenido */
+align-items: center; /* Centra verticalmente el contenido (opcional) */
+margin-top: 10px; /* Espacio superior para el contenedor */
+}
+
+/* metodo de entrega*/
+
+.delivery-options {
+display: flex; /* Utiliza flexbox para alinear las opciones */
+justify-content: center; /* Centra las opciones horizontalmente */
+align-items: center; /* Asegura que las opciones estén centradas verticalmente */
+border: 1px solid #ccc; /* Borde del contenedor */
+border-radius: 10px; /* Bordes redondeados */
+margin: 40px 20%; /* Margen superior de 40px y márgenes laterales de 20% */
+overflow: hidden; /* Oculta el desbordamiento */
+height: 45px; /* Ajusta la altura del contenedor */
+}
+
+.option-card {
+flex: 1; /* Cada opción ocupa el mismo espacio */
+cursor: pointer; /* Cambia el cursor al pasar sobre el elemento */
+padding: 10px; /* Espaciado interno reducido */
+text-align: center; /* Centra el texto */
+transition: background-color 0.3s, color 0.3s; /* Transición suave */
+position: relative; /* Para posicionar la línea divisoria */
+font-size: 16px; /* Tamaño de fuente por defecto */
+}
+
+.option-card:not(:last-child)::after {
+content: ""; /* Crea un pseudo-elemento */
+position: absolute; /* Posiciona el elemento */
+top: 0; /* Alinea al borde superior */
+right: 0; /* Alinea al borde derecho */
+width: 1px; /* Ancho de la línea divisoria */
+height: 100%; /* Altura completa del contenedor */
+background-color: #ccc; /* Color de la línea divisoria */
+}
+
+.option-card.selected {
+background-color: #0156FC; /* Fondo azul cuando está seleccionado */
+color: #fff; /* Texto blanco cuando está seleccionado */
+}
+
+.hidden {
+display: none; /* Oculta los formularios por defecto */
+}
+
+/* Estilos para pantallas pequeñas */
+@media (max-width: 768px) {
+.option-card {
+    padding: 8px; /* Reduce el espaciado interno en pantallas pequeñas */
+    font-size: 14px; /* Tamaño de fuente más pequeño en pantallas pequeñas */
+}
+}
+
+
+.guest-form {
+margin: 5px 20%; /* Margen a los costados del 15% */ /* Fondo negro para el formulario */
+border: 1px solid #ccc; /* Borde del formulario */
+border-radius: 10px; /* Bordes redondeados */
+padding: 20px; /* Espaciado interno */
+color: #020202; /* Color del texto blanco */
+font-size: 15px;
+
+}
+
+/* Estilos para los grupos de formulario */
+.form-group {
+margin-bottom: 10px; /* Espacio entre los grupos de formulario */
+}
+
+/* Estilos para las etiquetas */
+label {
+display: block; /* Asegura que las etiquetas ocupen toda la línea */
+margin-bottom: 5px; /* Espacio entre la etiqueta y el input */
+font-size: 15px;
+}
+
+/* Estilos para los inputs */
+input[type="text"],
+input[type="tel"],
+input[type="email"] {
+width: 100%; /* Ancho completo para los inputs */
+padding: 5px; /* Espaciado interno para los inputs */
+border: 1px solid #ccc; /* Borde de los inputs */
+border-radius: 5px; /* Bordes redondeados para los inputs */
+background-color: #fff; /* Fondo blanco para los inputs */
+color: #000; /* Color del texto negro para los inputs */
+}
+
+/* Estilos para pantallas pequeñas */
+@media (max-width: 768px) {
+.guest-form {
+    margin: 0 5%; /* Reduce el margen en pantallas pequeñas */
+}
+}
+.header-title {
+display: flex;
+justify-content: space-between;
+align-items: flex-start;
+padding: 20px;
+width: 100%;
+}
+
+.title-section {
+display: flex;
+flex-direction: column;
+gap: 8px;
+}
+
+.title-section h1 {
+margin: 0;
+}
+
+.order-container {
+align-self: flex-start;
+margin-right: 20px; /* Alinea con el summary */
+}
+.order {
+text-decoration: none;
+color: #adabab;
+padding: 8px 16px;
+font-weight: bold;
+border-radius: 4px;
+display: inline-block;
+}
+.order-count {
+text-decoration: none;
+color: #adabab;
+padding: 8px 16px;
+font-weight: bold;
+border-radius: 4px;
+display: inline-block;
+}
+
+/* Estilos responsive */
+@media (max-width: 768px) {
+.header-title {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.title-section {
+    text-align: center;
+}
+
+.order-container {
+    margin-right: 0;
+    align-self: center;
+}
+}
+
+@media (max-width: 480px) {
+.header-title h1 {
+    font-size: 1.5rem;
+}
+
+.order-count {
+    font-size: 0.9rem;
+}
+}
+
+.modal {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-color: rgba(0, 0, 0, 0.5);
+display: flex;
+justify-content: center;
+align-items: center;
+z-index: 1000;
+}
+
+.modal-content {
+background-color: white;
+padding: 30px;
+border-radius: 15px;
+text-align: center;
+width: 90%;
+max-width: 400px;
+margin: 20px;
+box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.modal-content h3 {
+color: #0A5EFC;
+font-size: 20px;
+margin-bottom: 20px;
+font-weight: 600;
+}
+
+.modal-buttons {
+display: flex;
+justify-content: center;
+gap: 15px;
+margin-top: 25px;
+}
+
+.modal-btn {
+padding: 12px 30px;
+border-radius: 25px;
+cursor: pointer;
+border: none;
+font-size: 16px;
+font-weight: 500;
+transition: all 0.3s ease;
+}
+
+.modal-btn.yes {
+background-color: #0A5EFC;
+color: white;
+}
+
+.modal-btn.yes:hover {
+background-color: #0056b3;
+}
+
+.modal-btn.no {
+background-color: #dc3545;
+color: white;
+}
+
+.modal-btn.no:hover {
+background-color: #c82333;
+}
+
+/* Responsive para tablets */
+@media (max-width: 768px) {
+.modal-content {
+    padding: 25px;
+    width: 85%;
+    max-width: 350px;
+}
+
+.modal-content h3 {
+    font-size: 18px;
+}
+
+.modal-btn {
+    padding: 10px 25px;
+    font-size: 15px;
+}
+}
+
+/* Responsive para móviles */
+@media (max-width: 480px) {
+.modal-content {
+    padding: 20px;
+    width: 80%;
+    margin: 15px;
+}
+
+.modal-content h3 {
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+
+.modal-buttons {
+    flex-direction: column;
+    gap: 10px;
+}
+
+.modal-btn {
+    width: 100%;
+    padding: 12px;
+    font-size: 14px;
+}
+}
+
+/* Responsive para móviles muy pequeños */
+@media (max-width: 320px) {
+.modal-content {
+    padding: 15px;
+    width: 90%;
+    margin: 10px;
+}
+
+.modal-content h3 {
+    font-size: 14px;
+}
+
+.modal-btn {
+    padding: 10px;
+    font-size: 13px;
+}
+}
+
+/* Ajustes para pantallas de alta densidad */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+.modal-content {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+}
+
+/* Ajustes para modo oscuro del sistema */
+@media (prefers-color-scheme: dark) {
+.modal-content {
+    background-color: #2c2c2c;
+    color: white;
+}
+
+.modal-content h3 {
+    color: #66a3ff;
+}
+}
+
+/* Ajustes para preferencias de movimiento reducido */
+@media (prefers-reduced-motion: reduce) {
+.modal-btn {
+    transition: none;
+}
+}
+
+/*hidden para que no se muestre el modal*/
+
+
+.payment-container {
+
+    padding: 30px;
+    width: 90%;
+    margin: 20px auto;
+
+}
+
+/* Grid de dos columnas */
+.payment-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 100px; /* Separación de 100px entre columnas */
+    margin-bottom: 30px;
+    padding: 0 20px; /* Padding adicional en los laterales */
+}
+
+/* Ajustes para mantener el contenido centrado */
+.payment-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra el contenido horizontalmente */
+}
+
+/* Ajuste del ancho de los contenedores internos */
+.credit-card-section,
+.alternative-payments {
+    width: 100%;
+    max-width: 400px; /* Limita el ancho máximo */
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+    .payment-grid {
+        gap: 60px; /* Reduce el espacio en pantallas más pequeñas */
+    }
+}
+
+@media (max-width: 768px) {
+    .payment-grid {
+        grid-template-columns: 1fr; /* Cambia a una columna */
+        gap: 40px;
+        padding: 0 10px;
+    }
+}
+
+/* Estilos para tarjeta de crédito */
+.credit-card-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.payment-form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.card-number-form {
+    width: 100%;
+}
+
+.card-input-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.form-details {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Estilos para otros métodos de pago */
+.payment-options {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.payment-option {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* Tipo de comprobante */
+.invoice-type {
+    border-top: 1px solid #eee;
+    padding-top: 30px;
+}
+
+.invoice-options {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .payment-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .payment-container {
+        padding: 20px;
+        width: 95%;
+    }
+
+    .payment-options {
+        flex-direction: row;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .payment-option {
+        flex: 1;
+        max-width: 200px;
+    }
+
+    .invoice-options {
+        flex-direction: row;
+        gap: 20px;
+    }
+    .card-number-form {
+        max-width: 350px;
+    }
+
+    .form-details {
+        width: 65%;
+    }
+    .card-number-form{
+        width: 65%;
+    }
+    .payment-options{
+        width: 65%;
+    }
+   
+}
+
+@media (max-width: 480px) {
+    .payment-container {
+        padding: 15px;
+        width: 100%;
+    }
+
+    .payment-options {
+        flex-direction: column;
+    }
+
+    .payment-option {
+        max-width: none;
+    }
+
+    .invoice-options {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+}
+
+/* Mantener los estilos existentes para inputs y otros elementos */
+.form input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.card-icons {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    gap: 8px;
+}
+
+h3 {
+    color: #0A5EFC;
+    font-size: 16px;
+    margin-bottom: 15px;
+    font-weight: 600;
+}

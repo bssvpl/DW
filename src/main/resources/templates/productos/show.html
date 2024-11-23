@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+    <link th:href="@{css/general.css}" rel="stylesheet" >
+	<link th:href="@{css/productos.css}" rel="stylesheet" >
+	
+	
+	
+    <!-- Material de iconos -->
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp"
+      rel="stylesheet"/>
+
+    <!-- Google fonts popins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+
+    
+    <title>Inventario</title>
+</head>
+<body>
+  <div th:insert="~{administrador/template_home.html::header}"></div>
+  
+  <main>
+	<div th:insert="~{administrador/template_home.html::sidebar}"></div>
+			<section>
+				
+			
+	        <h1>Contenido principal</h1>
+	        
+	        <div class="controls">
+	            <a th:href="@{/productos/create}" class="btn-nuevo">Nuevo</a>
+
+	            <div>
+	                <label for="registros">Mostrar</label>
+	                <select id="registros" class="select-registros">
+	                    <option value="10">10</option>
+	                    <option value="25">25</option>
+	                    <option value="50">50</option>
+	                </select>
+	                registros
+	                <input type="search1" placeholder="Buscar...">
+	            </div>
+	        </div>
+
+			<div class="outer-wrapper">
+				<div class="tablescroll">
+					<table>
+						<thead>
+							<tr>
+								<th>Nombre</th>
+								<th>Descripcion</th>
+								<th>Precio</th>
+								<th>Talla</th>
+								<th>Color</th>
+								<th>Cantidad</th>
+								<th>Marca</th>
+								<th>Descuento</th>
+								<th>Acciones</th>
+								<th>Seleccionar</th>
+
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="producto:${productos}">
+								<td th:text="${producto.nombre}"></td>
+								<td th:text="${producto.descripcion}"></td>
+								<td th:text="${producto.precio}"></td>
+								<td th:text="${producto.talla}"></td>
+								<td th:text="${producto.color}"></td>
+								<td th:text="1"></td>
+								<td th:text="${producto.marca}"></td>
+								<td th:text="${producto.descuento}"></td>
+	<!--							<td th:text="${producto.cantidad}"></td>-->
+								<td class="acciones">
+									<a th:href="@{productos/edit/{id}(id=${producto.id})}" class="btn-editar">Editar</a>
+									<a th:href="@{productos/delete/{id}(id=${producto.id})}" class="btn-borrar">Eliminar</a>
+								</td>
+								<td>
+									<a th:href="@{/productos/productodetalle/{id}(id=${producto.id})}" class="btn-seleccionar">Seleccionar</a>
+
+								</td>
+							</tr>
+
+						</tbody>
+					</table>
+	        	</div>
+			</div>
+			</section>
+	    
+	</main>
+
+
+
+
+
+
+	<script th:src="@{js/dashboard.js}"></script>
+	<script th:src="@{js/modo-btn.js}"></script>
+
+    
+
+</body>
+</html>

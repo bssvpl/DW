@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+    <link th:href="@{css/general.css}" rel="stylesheet" >
+	<link th:href="@{css/productos.css}" rel="stylesheet" >
+	
+	
+	
+    <!-- Material de iconos -->
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp"
+      rel="stylesheet"/>
+
+    <!-- Google fonts popins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+
+    
+    <title>Usuarios</title>
+</head>
+<body>
+  <div th:insert="~{administrador/template_home.html::header}"></div>
+  
+  <main>
+	<div th:insert="~{administrador/template_home.html::sidebar}"></div>
+			<section>
+				
+			
+	        <h1>Usuarios</h1>
+	        
+	        <div class="controls">
+	            <a th:href="@{/crearUsuario}" class="btn-nuevo">Nuevo</a>
+
+	            <div>
+	                <label for="registros">Mostrar</label>
+	                <select id="registros" class="select-registros">
+	                    <option value="10">10</option>
+	                    <option value="25">25</option>
+	                    <option value="50">50</option>
+	                </select>
+	                registros
+	                <input type="search1" placeholder="Buscar...">
+	            </div>
+	        </div>
+
+	        <div class="table-container">
+	            <table>
+	                <thead>
+	                    <tr>
+	                        <th>DNI</th>
+	                        <th>Usuario</th>
+	                        <th>Nombres</th>
+							<th>Apellidos</th>
+							<th>Dirección</th>
+							<th>Teléfono</th>
+							<th>Correo</th>
+	                    </tr>
+	                </thead>
+	                <tbody>
+	                    <tr th:each="usuario:${datosPersonales}">
+	                        <td th:text="${usuario.dni}"></td>
+							<td th:text="${usuario.usuario.nombre}"></td>
+	                        <td th:text="${usuario.nombre}"></td>
+	                        <td th:text="${usuario.apellidos}"></td>
+							<td th:text="${usuario.direccion}"></td>
+							<td th:text="${usuario.telefono}"></td>
+							<td th:text="${usuario.correo}"></td>
+	                    </tr>
+	                    
+	                </tbody>
+	            </table>
+	        </div>
+			</section>
+	    
+	</main>
+
+
+
+
+
+
+	<script th:src="@{js/dashboard.js}"></script>
+	<script th:src="@{js/modo-btn.js}"></script>
+
+    
+
+</body>
+</html>

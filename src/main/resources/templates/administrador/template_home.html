@@ -1,0 +1,108 @@
+
+    <!-- #############--NAVBAR--########### -->
+	
+		<nav th:fragment="header">
+		      <div class="container">
+		        <div class="logo-title">
+		        <img th:src="@{/imagesWeb/LogoOficial.png}" class="logo" />
+		        <h3>GALERIA <span>ESTILO</span> </h3>
+		        </div>
+		        <div class="search-bar">
+		          <span class="material-icons-sharp">search</span>
+		          <input type="search" placeholder="Search" />
+		        </div>
+		        <div class="profile-area">
+		          <div class="theme-btn">
+		            <span class="material-icons-sharp active">light_mode</span>
+		            <span class="material-icons-sharp">dark_mode</span>
+		          </div>
+				<div class="profile">
+					<div class="profile-photo">
+						<img th:src="@{/imagesWeb/profile-1.jpg}" />
+					</div>
+					<h5 id="UserConnected" th:text="${user != null ? user.datosPer.nombre + ' ' + user.datosPer.apellidos : 'Guest'}"></h5>
+				</div>
+					<span class="material-icons-sharp" id="expand-profile" style="cursor: pointer;">expand_more</span>
+					<div id="profile-menu" class="hidden">
+						<a href="/logout">Cerrar Sesión</a>
+					</div>
+					<script>
+						document.getElementById('expand-profile').addEventListener('click', function() {
+							var profileMenu = document.getElementById('profile-menu');
+							if (profileMenu.classList.contains('hidden')) {
+								profileMenu.classList.remove('hidden');
+							} else {
+								profileMenu.classList.add('hidden');
+							}
+						});
+					</script>
+					<button id="menu-btn">
+		            <span class="material-icons-sharp">menu</span>
+		          </button>
+		        </div>
+		      </div>
+		    </nav>
+		    <!-- #############--END NAVBAR --#############  -->
+	
+    
+	
+    <!-- #############--SIDEBAR --#############  -->
+	
+		
+		      <aside th:fragment="sidebar">
+		        <button id="close-btn">
+		          <span class="material-icons-sharp">close</span>
+		        </button>
+
+		        <div class="sidebar">
+				<a th:href="@{/home}" th:classappend="${currentUrl == '/administrador/home'} ? 'active'">
+					<span class="material-icons-sharp">dashboard</span>
+		            <h4>Dashboard</h4>
+		          </a>
+		          <a th:href="@{/productos}" th:classappend="${currentUrl == '/productos'} ? 'active'">
+		            <span class="material-icons-sharp">inventory</span>
+		            <h4>Inventario</h4>
+		          </a>
+		          <a th:href="@{/usuarios}" th:classappend="${currentUrl == '/usuarios'} ? 'active'">
+		            <span class="material-icons-sharp">manage_accounts</span>
+		            <h4>Gestion Usuarios</h4>
+		          </a>
+		          <a th:href="@{/pedidos}" th:classappend="${currentUrl == '/pedidos'} ? 'active'">
+		            <span class="material-icons-sharp">credit_score</span>
+		            <h4>Pedidos</h4>
+		          </a>
+		          <a href="#">
+		            <span class="material-icons-sharp">local_mall</span>
+		            <h4>Reembolsos</h4>
+		          </a>
+		          <a href="#">
+		            <span class="material-icons-sharp">message</span>
+		            <h4>Mensajes</h4>
+		          </a>
+		          <a href="#">
+		            <span class="material-icons-sharp">help_center</span>
+		            <h4>Ayuda</h4>
+		          </a>
+		          <a href="#">
+		            <span class="material-icons-sharp">settings</span>
+		            <h4>Configuraciones</h4>
+		          </a>
+		          
+		        </div>
+		        <!-- #############--END SIDEBAR --#############  -->
+		        <div class="updates">
+		          <span class="material-icons-sharp">autorenew</span>
+		          <h4>Actualizaciones Disponibles</h4>
+		          <p>Actualizaciones seguras</p>
+		          <p>Actualizaciones Generales</p>
+		          <a href="#">Actualizar ahora</a>
+		        </div>
+		      </aside>
+
+		      <!-- #############--END ASIDE --#############  -->
+		      
+		
+		
+	
+    
+    
