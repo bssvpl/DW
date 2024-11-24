@@ -12,22 +12,33 @@ import java.util.Optional;
 public class ComprobanteService {
 
     @Autowired
-    private IComprobante IComprobante;
+    private IComprobante comprobanteRepository;
 
     public List<Comprobante> getComprobantes() {
-        return IComprobante.findAll();
+        return comprobanteRepository.findAll();
     }
 
     public Optional<Comprobante> getComprobante(Integer id) {
-        return IComprobante.findById(id);
+        return comprobanteRepository.findById(id);
     }
 
     public void save(Comprobante comprobante) {
-        IComprobante.save(comprobante);
+        comprobanteRepository.save(comprobante);
     }
 
     public void deleteById(Integer id) {
-        IComprobante.deleteById(id);
+        comprobanteRepository.deleteById(id);
     }
 
+    public int obtenerUltimoNumero() {
+        return comprobanteRepository.findTopByOrderByNumeroDesc()
+                .map(Comprobante::getNumero)
+                .orElse(10000); // Empezamos desde 10001
+    }
+
+    // Nuevo método para generar serie
+    public String generarSerie() {
+        int ultimoNumero = obtenerUltimoNumero() - 100000;
+        return String.format("A%03d", ultimoNumero + 1);
+    }
 }

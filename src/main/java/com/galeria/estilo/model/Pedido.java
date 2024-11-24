@@ -15,8 +15,8 @@ public class Pedido {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "fecha", insertable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
-    private LocalDateTime fecha;
+    @Column(name = "fecha_entrega", nullable = false)
+    private LocalDateTime fechaEntrega;
 
     @Column(name = "estado", length = 50, nullable = false)
     private String estado;
@@ -30,5 +30,15 @@ public class Pedido {
 
     @OneToMany(mappedBy = "pedido")
     private List<DetPedido> detallePedido;
-    
+
+    @Column(name = "numero_comprobante")
+    private String numeroComprobante;
+
+    public String getNumeroComprobante() {
+        return numeroComprobante;
+    }
+
+    public void setNumeroComprobante(String numeroComprobante) {
+        this.numeroComprobante = numeroComprobante;
+    }
 }

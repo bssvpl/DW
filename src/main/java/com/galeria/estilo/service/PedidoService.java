@@ -30,4 +30,16 @@ public class PedidoService {
         IPedido.deleteById(id);
     }
 
+    public int obtenerUltimoPedido() {
+        return IPedido.findTopByOrderByIdDesc()
+                .map(Pedido::getId)
+                .orElse(0);
+    }
+
+    public Integer obtenerUltimoId() {
+        return IPedido.findTopByOrderByIdDesc()
+                .map(Pedido::getId)
+                .orElse(0);
+    }
+
 }

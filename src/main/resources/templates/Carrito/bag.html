@@ -61,26 +61,34 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    <tr th:each="item : ${items}" th:data-id="${item.producto.id}" 
+                        th:data-precio="${item.producto.precio}" 
+                        th:data-descuento="${item.producto.descuento}">
                         <td class="borrar contenedor-producto">
                             <img src="/imagesWeb/prenda6.jpg" alt="Camiseta Manga Larga" id="mainImage" class="product-image">
                             <div class="product-info">
-                                <span th:text="${producto.nombre}">desconocido</span>
+                                <span th:text="${item.producto.nombre}">desconocido</span>
                                 <span th:text="${tiendaNombre}">Vendido por:</span>
                             </div>
                         </td>   
-                        <td class="precio contenedor-producto" th:text="${producto.precio}">S/170.00</td>
+                        <td class="precio contenedor-producto">
+                            <span th:text="${'S/ ' + #numbers.formatDecimal(item.producto.precio, 0, 'COMMA', 2, 'POINT')}">S/170.00</span>
+                            
+                        </td>
                         <td class="cantidad contenedor-producto">
                             <div class="quantity-container">
-                                <button class="quantity-btn" onclick="decrement()">-</button>
-                                <input type="number" class="quantity-input" value="1" min="1" />
-                                <button class="quantity-btn" onclick="increment()">+</button>
+                                <button class="quantity-btn minus" th:data-id="${item.producto.id}">-</button>
+                                <input type="number" class="quantity-input" th:value="${item.cantidad}" min="1" th:data-id="${item.producto.id}" />
+                                <button class="quantity-btn plus" th:data-id="${item.producto.id}">+</button>
                             </div>
                         </td>
-                        <td class="precio contenedor-producto" th:text="${producto.precio}">S/170.00</td>
+                        <td class="precio contenedor-producto">
+                            <span th:text="${'S/ ' + #numbers.formatDecimal(item.producto.precio * item.cantidad, 0, 'COMMA', 2, 'POINT')}"></span>
+                            
+                        </td>
                         <td class="delete">
                             <div class="icon-container">
-                                <a th:href="@{productos/delete/{id}(id=${producto.id})}" class="btn-borrar">
+                                <a th:href="@{/vistausuario/bag/eliminar/{id}(id=${item.producto.id})}" class="btn-borrar">
                                     <i class="far fa-trash-alt"></i>
                                 </a>
                             </div>
@@ -96,16 +104,18 @@
                 <h2>Resumen de Compra</h2>
                 <div class="summary-content">
                     <div class="sbt">
-                        <span>Subtotal:</span>
-                        <span></span>
+                        <span>Subtotal</span>
+                        <span th:text="${'S/ ' + #numbers.formatDecimal(subtotal, 0, 'COMMA', 2, 'POINT')}"></span>
                     </div>
                     <div class="dscto">
-                        <span>Descuento:</span>
-                        <span class="discount"></span>
+                        <span>Descuento</span>
+                        <span class="discount" style="color: red;" 
+                              th:text="${'- S/ ' + #numbers.formatDecimal(descuentoTotal, 0, 'COMMA', 2, 'POINT')}">
+                        </span>
                     </div>
                     <div class="total">
-                        <span>Total:</span>
-                        <span></span>
+                        <span>Total</span>
+                        <span th:text="${'S/ ' + #numbers.formatDecimal(total, 0, 'COMMA', 2, 'POINT')}"></span>
                     </div>
                     <div class="contenedor">
                         <form th:action="@{/vistausuario/carrito}" method="get">
@@ -136,6 +146,58 @@
                 input.value = parseInt(input.value) - 1;
             }
         }
+        document.addEventListener('DOMContentLoaded', function() {
+    // Manejar cambios en la cantidad
+    document.querySelectorAll('.quantity-input').forEach(input => {
+        input.addEventListener('change', function() {
+            actualizarCantidad(this.dataset.id, this.value);
+        });
+    });
+
+    // Botones + y -
+    document.querySelectorAll('.quantity-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const input = this.parentElement.querySelector('.quantity-input');
+            let valor = parseInt(input.value);
+            if (this.classList.contains('minus')) {
+                valor = Math.max(1, valor - 1);
+            } else {
+                valor++;
+            }
+            input.value = valor;
+            actualizarCantidad(this.dataset.id, valor);
+        });
+    });
+});
+
+function actualizarCantidad(productoId, cantidad) {
+    fetch(`/vistausuario/bag/actualizar/${productoId}?cantidad=${cantidad}`, {
+        method: 'POST'
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Actualizar subtotal, descuento y total generales
+        document.querySelector('.sbt span:last-child').textContent = `S/ ${data.subtotal.toFixed(2)}`;
+        document.querySelector('.dscto span:last-child').textContent = `- S/ ${data.descuentoTotal.toFixed(2)}`;
+        document.querySelector('.total span:last-child').textContent = `S/ ${data.total.toFixed(2)}`;
+        
+        // Actualizar el contador de productos
+        document.querySelector('.order-count').textContent = 
+            `${data.cantidadTotal} producto${data.cantidadTotal !== 1 ? 's' : ''} agregado${data.cantidadTotal !== 1 ? 's' : ''}`;
+
+        // Actualizar el total del producto específico
+        const fila = document.querySelector(`tr[data-id="${productoId}"]`);
+        const precio = parseFloat(fila.getAttribute('data-precio'));
+        const totalProducto = precio * cantidad;
+        
+        // Actualizar el total en la columna correspondiente
+        const totalColumn = fila.querySelector('.precio.contenedor-producto:last-of-type span');
+        totalColumn.textContent = `S/ ${totalProducto.toFixed(2)}`;
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
     </script>
 
 </body>

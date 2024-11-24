@@ -10,18 +10,23 @@
 
 </head>
 <body>
-    <div th:if="${mensaje != null}">
-        <p th:text="${mensaje}"></p>
-    </div>
-    <div id="guestModal" class="modal hidden">
-        <div class="modal-content">
-            <h3>¿Desea continuar como invitado?</h3>
-            <div class="modal-buttons">
-                <button onclick="continueAsGuest()" class="modal-btn yes">Sí</button>
-                <button onclick="redirectToLogin()" class="modal-btn no">No</button>
-            </div>
+
+    <!-- Opcional para mostar el guest o usuario -->
+  <!--/* 
+  <div th:if="${mensaje != null}">
+      <p th:text="${mensaje}"></p>
+  </div>
+*/-->
+<div id="guestModal" class="modal" th:if="${showModal}">
+    <div class="modal-content">
+        <h3>¿Desea continuar como invitado?</h3>
+        <div class="modal-buttons">
+            <button onclick="handleGuestChoice(true)" class="modal-btn yes">Sí</button>
+            <button onclick="handleGuestChoice(false)" class="modal-btn no">No</button>
         </div>
-    </div>    
+    </div>
+</div>
+    
     <header class="header-navegacion">
         <div class="logo">
             <img src="/imagesWeb/LogoOficial.png" alt="logo" id="logo-img">
@@ -127,16 +132,17 @@
                 <h2>Resumen de Compra</h2>
                 <div class="summary-content">
                     <div class="sbt">
-                        <span>Subtotal:</span>
-                        <span></span>
+                        <span>Subtotal</span>
+                        <span th:text="${'S/ ' + #numbers.formatDecimal(subtotal, 0, 'COMMA', 2, 'POINT')}">S/0.00</span>
                     </div>
                     <div class="dscto">
-                        <span>Descuento:</span>
-                        <span class="discount"></span>
+                        <span>Descuento</span>
+                        <span class="discount" style="color: red;" 
+                              th:text="${'- S/ ' + #numbers.formatDecimal(descuentoTotal, 0, 'COMMA', 2, 'POINT')}">-S/0.00</span>
                     </div>
                     <div class="total">
-                        <span>Total:</span>
-                        <span></span>
+                        <span>Total</span>
+                        <span th:text="${'S/ ' + #numbers.formatDecimal(total, 0, 'COMMA', 2, 'POINT')}">S/0.00</span>
                     </div>
                 </div>
                 <div class="contenedor">
@@ -157,84 +163,153 @@
 
   
 
-    <script>
+    <script th:inline="javascript">
+        const user = /*[[${user}]]*/ null;
+        console.log("Usuario en sesión:", user);
+
+        function loadUserData() {
+            console.log('Iniciando carga de datos...');
+            
+            fetch('/vistausuario/api/user-data')
+                .then(response => {
+                    console.log('Estado de la respuesta:', response.status);
+                    return response.json();
+                })
+                .then(datos => {
+                    console.log('Datos recibidos:', datos);
+                    
+                    if (datos.error) {
+                        console.error('Error recibido del servidor:', datos.error);
+                        return;
+                    }
+
+                    // Rellenar formulario pickup
+                    try {
+                        if (document.getElementById('pickupForm')) {
+                            document.getElementById('pickup-nombre').value = datos.nombre || '';
+                            document.getElementById('pickup-apellidos').value = datos.apellidos || '';
+                            document.getElementById('pickup-dni').value = datos.dni || '';
+                            document.getElementById('pickup-telefono').value = datos.telefono || '';
+                            document.getElementById('pickup-email').value = datos.correo || '';
+                        }
+                    } catch (error) {
+                        console.error('Error al rellenar formulario pickup:', error);
+                    }
+
+                    // Rellenar formulario delivery
+                    try {
+                        if (document.getElementById('deliveryForm')) {
+                            document.getElementById('delivery-nombre').value = datos.nombre || '';
+                            document.getElementById('delivery-apellidos').value = datos.apellidos || '';
+                            document.getElementById('delivery-dni').value = datos.dni || '';
+                            document.getElementById('delivery-direccion').value = datos.direccion || '';
+                            document.getElementById('delivery-telefono').value = datos.telefono || '';
+                            document.getElementById('delivery-email').value = datos.correo || '';
+                        }
+                    } catch (error) {
+                        console.error('Error al rellenar formulario delivery:', error);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error en la petición:', error);
+                });
+        }
+
+        // Cargar datos cuando se carga la página
+        document.addEventListener('DOMContentLoaded', () => {
+            if (user) {
+                loadUserData();
+            }
+        });
+
+        // Modificar la función toggleForm
         function toggleForm(option) {
-            // Oculta ambos formularios
+            console.log('Cambiando a formulario:', option);
+            
+            // Ocultar ambos formularios
             document.getElementById('pickupForm').classList.add('hidden');
             document.getElementById('deliveryForm').classList.add('hidden');
 
-            // Remueve la clase 'selected' de ambas opciones
-            document.querySelectorAll('.option-card').forEach(card => {
-                card.classList.remove('selected');
-            });
-
-            // Muestra el formulario correspondiente y resalta la opción seleccionada
+            // Mostrar el formulario seleccionado
             if (option === 'pickup') {
                 document.getElementById('pickupForm').classList.remove('hidden');
-                document.querySelector('.option-card[data-option="pickup"]').classList.add('selected');
             } else if (option === 'delivery') {
                 document.getElementById('deliveryForm').classList.remove('hidden');
-                document.querySelector('.option-card[data-option="delivery"]').classList.add('selected');
+            }
+
+            // Si hay usuario, cargar datos
+            if (user) {
+                console.log('Recargando datos después de cambiar formulario');
+                loadUserData();
             }
         }
 
-        function continueAsGuest() {
-    console.log("Cerrando el modal...");  // Verifica si se ejecuta la función
-    document.getElementById('guestModal').classList.add('hidden'); // Esconde el modal
-    window.location.href = '/vistausuario/carrito'; // Redirige a la página del carrito
-}
-
-
-        function redirectToLogin() {
-            document.getElementById('guestModal').classList.add('hidden');
-            window.location.href = '/login';
+        function handleGuestChoice(continueAsGuest) {
+            const modal = document.getElementById('guestModal');
+            
+            if (continueAsGuest) {
+                // Redirige a la misma página pero con el parámetro guest=true
+                window.location.href = '/vistausuario/carrito?guest=true';
+            } else {
+                // Redirige al login
+                window.location.href = '/login';
+            }
         }
+
+        // Opcional: Prevenir que el modal se cierre al hacer clic fuera
+        document.querySelector('.modal-content').addEventListener('click', (e) => {
+            e.stopPropagation();
+        });
 
         function checkUserAndProceed() {
-    const userElement = document.getElementById('UserConnected');
-    const isGuest = userElement.textContent === 'Guest';
-    
-    if (isGuest) {
-        document.getElementById('guestModal').classList.remove('hidden');
-    } else {
-        // Si es usuario registrado, autorellenar formularios y proceder
-        autofillFormsAndSubmit();
-    }
-}
-
-function autofillFormsAndSubmit() {
-    // Función para autorellenar formularios con datos del usuario
-    fetch('/api/user-data')
-        .then(response => response.json())
-        .then(userData => {
-            const activeForm = document.querySelector('.guest-form:not(.hidden)');
-            if (activeForm) {
-                if (activeForm.dataset.form === 'pickup') {
-                    // Rellenar el formulario de recogida
-                    document.getElementById('pickup-nombre').value = userData.nombre;
-                    document.getElementById('pickup-apellidos').value = userData.apellidos;
-                    document.getElementById('pickup-dni').value = userData.dni;
-                    document.getElementById('pickup-telefono').value = userData.telefono;
-                    document.getElementById('pickup-email').value = userData.correo;
-                } else {
-                    // Rellenar el formulario de entrega
-                    document.getElementById('delivery-nombre').value = userData.nombre;
-                    document.getElementById('delivery-apellidos').value = userData.apellidos;
-                    document.getElementById('delivery-dni').value = userData.dni;
-                    document.getElementById('delivery-direccion').value = userData.direccion;
-                    document.getElementById('delivery-telefono').value = userData.telefono;
-                    document.getElementById('delivery-email').value = userData.correo;
-                }
+            const userElement = document.getElementById('UserConnected');
+            const isGuest = userElement.textContent === 'Guest';
+            const hasChosenGuest = sessionStorage.getItem('isGuest');
+            
+            if (isGuest && !hasChosenGuest) {
+                document.getElementById('guestModal').classList.remove('hidden');
+            } else {
+                // Si es usuario registrado o ya eligió continuar como invitado
+                autofillFormsAndSubmit();
             }
-            // Proceder con el envío del formulario o redirección
-            window.location.href = '/vistausuario/carrito';
-        })
-        .catch(error => {
-            console.error("Error al obtener los datos del usuario:", error);
-        });
-}
+        }
+
+        function autofillFormsAndSubmit() {
+            fetch('/vistausuario/api/user-data')
+                .then(response => response.json())
+                .then(userData => {
+                    const activeForm = document.querySelector('.guest-form:not(.hidden)');
+                    if (activeForm) {
+                        if (activeForm.dataset.form === 'pickup') {
+                            // Rellenar el formulario de recogida
+                            document.getElementById('pickup-nombre').value = userData.nombre || '';
+                            document.getElementById('pickup-apellidos').value = userData.apellidos || '';
+                            document.getElementById('pickup-dni').value = userData.dni || '';
+                            document.getElementById('pickup-telefono').value = userData.telefono || '';
+                            document.getElementById('pickup-email').value = userData.correo || '';
+                        } else {
+                            // Rellenar el formulario de entrega
+                            document.getElementById('delivery-nombre').value = userData.nombre || '';
+                            document.getElementById('delivery-apellidos').value = userData.apellidos || '';
+                            document.getElementById('delivery-dni').value = userData.dni || '';
+                            document.getElementById('delivery-direccion').value = userData.direccion || '';
+                            document.getElementById('delivery-telefono').value = userData.telefono || '';
+                            document.getElementById('delivery-email').value = userData.correo || '';
+                        }
+                    }
+                })
+                .catch(error => {
+                    console.error("Error al obtener los datos del usuario:", error);
+                });
+        }
+
+        // Opcional: Función para limpiar la elección de invitado al cerrar sesión
+        function clearGuestChoice() {
+            sessionStorage.removeItem('isGuest');
+        }
 
     </script>
+
 
 </body>
 </html>

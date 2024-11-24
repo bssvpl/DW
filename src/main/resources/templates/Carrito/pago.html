@@ -7,7 +7,8 @@
     <link th:href="@{/css/bag.css}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>  
     <header class="header-navegacion">
@@ -117,20 +118,21 @@
                 <h2>Resumen de Compra</h2>
                 <div class="summary-content">
                     <div class="sbt">
-                        <span>Subtotal:</span>
-                        <span></span>
+                        <span>Subtotal</span>
+                        <span th:text="${'S/ ' + #numbers.formatDecimal(subtotal, 0, 'COMMA', 2, 'POINT')}">S/0.00</span>
                     </div>
                     <div class="dscto">
-                        <span>Descuento:</span>
-                        <span class="discount"></span>
+                        <span>Descuento</span>
+                        <span class="discount" style="color: red;" 
+                              th:text="${'- S/ ' + #numbers.formatDecimal(descuentoTotal, 0, 'COMMA', 2, 'POINT')}">-S/0.00</span>
                     </div>
                     <div class="total">
-                        <span>Total:</span>
-                        <span></span>
+                        <span>Total</span>
+                        <span th:text="${'S/ ' + #numbers.formatDecimal(total, 0, 'COMMA', 2, 'POINT')}">S/0.00</span>
                     </div>
                 </div>
                   <div class="contenedor">
-        <button class="buy" onclick="checkUserAndProceed()">Finalizar compra</button>
+        <button class="buy" onclick="finalizarCompra()">Finalizar compra</button>
     </div>
             </aside>
         
@@ -144,6 +146,208 @@
     </div>   
 
   
+<script th:inline="javascript">
+    // Obtener el usuario de Thymeleaf de forma segura
+    const user = /*[[${session.user}]]*/ null;
+    console.log("Usuario en sesión:", user); // Para debugging
+</script>
+<script>
+// Función para obtener datos de entrega desde sessionStorage
+function obtenerDatosEntrega() {
+    // Intentar obtener el formulario activo (pickup o delivery)
+    const pickupForm = document.getElementById('pickupFormData');
+    const deliveryForm = document.getElementById('deliveryFormData');
+    
+    let formData;
+    if (pickupForm && !pickupForm.classList.contains('hidden')) {
+        formData = {
+            nombre: document.getElementById('pickup-nombre').value,
+            apellidos: document.getElementById('pickup-apellidos').value,
+            dni: document.getElementById('pickup-dni').value,
+            telefono: document.getElementById('pickup-telefono').value,
+            email: document.getElementById('pickup-email').value,
+            tipo: 'pickup'
+        };
+    } else if (deliveryForm && !deliveryForm.classList.contains('hidden')) {
+        formData = {
+            nombre: document.getElementById('delivery-nombre').value,
+            apellidos: document.getElementById('delivery-apellidos').value,
+            dni: document.getElementById('delivery-dni').value,
+            direccion: document.getElementById('delivery-direccion').value,
+            telefono: document.getElementById('delivery-telefono').value,
+            email: document.getElementById('delivery-email').value,
+            tipo: 'delivery'
+        };
+    }
+    
+    // Guardar en sessionStorage para uso posterior
+    sessionStorage.setItem('datosEntrega', JSON.stringify(formData));
+    return formData;
+}
 
+function finalizarCompra() {
+    // Verificar si hay un usuario
+    if (!user) {
+        Swal.fire({
+            title: 'Error',
+            text: 'Debe iniciar sesión para realizar la compra',
+            icon: 'error',
+            confirmButtonText: 'Ir a iniciar sesión'
+        }).then(() => {
+            window.location.href = '/login';
+        });
+        return;
+    }
+
+    // Obtener el token CSRF si lo estás usando
+    const csrfToken = document.querySelector("meta[name='_csrf']")?.getAttribute("content");
+    
+    // Obtener el método de pago seleccionado
+    let metodoPago = 'Tarjeta'; // Por defecto
+    const numeroTarjeta = document.querySelector('.card-number').value;
+    
+    // Validar datos de la tarjeta
+    if (!numeroTarjeta) {
+        Swal.fire({
+            title: 'Error',
+            text: 'Por favor ingrese los datos de la tarjeta',
+            icon: 'error'
+        });
+        return;
+    }
+
+    // Confirmar la compra
+    Swal.fire({
+        title: '¿Estás seguro de finalizar la compra?',
+        text: "Se procesará el pago con los datos ingresados",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, finalizar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            const formData = {
+                numeroTarjeta: document.querySelector('.card-number').value,
+                fechaExpiracion: document.querySelector('.card-expiry').value,
+                cvv: document.querySelector('.card-cvv').value,
+                tipoComprobante: document.querySelector('input[name="invoice"]:checked').value,
+                metodoPago: metodoPago
+            };
+
+            // Realizar la petición al servidor
+            fetch('/pago/procesar', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': csrfToken // Si estás usando CSRF
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Error en la respuesta del servidor');
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.success) {
+                    Swal.fire({
+                        title: '¡Compra exitosa!',
+                        text: '¿Deseas descargar tu comprobante?',
+                        icon: 'success',
+                        showCancelButton: true,
+                        confirmButtonText: 'Sí, descargar',
+                        cancelButtonText: 'No, gracias'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            generarPDF(data, formData);
+                        }
+                        // Redireccionar después de la compra
+                        window.location.href = '/vistausuario/carrito';
+                    });
+                } else {
+                    Swal.fire({
+                        title: 'Error',
+                        text: data.error || 'Hubo un error al procesar la compra',
+                        icon: 'error'
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Hubo un error al procesar la compra',
+                    icon: 'error'
+                });
+            });
+        }
+    });
+}
+
+// Agregar el evento click al botón
+document.addEventListener('DOMContentLoaded', function() {
+    const buyButton = document.querySelector('.buy');
+    if (buyButton) {
+        buyButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            finalizarCompra();
+        });
+    } else {
+        console.error('No se encontró el botón de compra');
+    }
+});
+
+function generarPDF(data, formData) {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    
+    try {
+        // Configuración del PDF
+        doc.setFontSize(22);
+        doc.text("GALERÍA ESTILO", 105, 20, { align: "center" });
+        
+        // Tipo de comprobante
+        doc.setFontSize(18);
+        doc.text(formData.tipoComprobante.toUpperCase(), 105, 30, { align: "center" });
+        
+        // Datos de la empresa
+        doc.setFontSize(12);
+        doc.text("RUC: 20123456789", 20, 40);
+        doc.text("Dirección: Jr. Gamarra 123, La Victoria", 20, 50);
+        
+        // Datos del comprobante
+        doc.text(`Comprobante N°: ${data.numeroComprobante}`, 20, 70);
+        doc.text(`Fecha: ${new Date().toLocaleDateString()}`, 20, 80);
+        doc.text(`Fecha estimada de entrega: ${new Date(data.fechaEntrega).toLocaleDateString()}`, 20, 90);
+        
+        // Datos del cliente
+        doc.text(`Cliente: ${data.nombreComprador}`, 20, 110);
+        doc.text(`DNI: ${data.dniComprador}`, 20, 120);
+        doc.text(`Dirección: ${data.direccion}`, 20, 130);
+        doc.text(`Teléfono: ${data.telefono}`, 20, 140);
+        doc.text(`Email: ${data.email}`, 20, 150);
+        
+        // Detalles del pago
+        const ultimosDigitos = formData.numeroTarjeta.slice(-4);
+        const tarjetaEnmascarada = `**** **** **** ${ultimosDigitos}`;
+        doc.text(`Tarjeta: ${tarjetaEnmascarada}`, 20, 170);
+        doc.text(`Total pagado: S/ ${data.total.toFixed(2)}`, 20, 180);
+        
+        // Descargar PDF
+        doc.save(`${formData.tipoComprobante}_${data.numeroComprobante}.pdf`);
+    } catch (error) {
+        console.error('Error al generar el PDF:', error);
+        Swal.fire({
+            title: 'Error',
+            text: 'No se pudo generar el PDF',
+            icon: 'error'
+        });
+    }
+}
+
+</script>
 </body>
 </html>

@@ -1,5 +1,6 @@
 package com.galeria.estilo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -30,7 +31,8 @@ public class DatosPer {
     @Column(name = "correo_electronico", length = 100, unique = true, nullable = false)
     private String correo;
 
-    @OneToOne
+    @JsonIgnore
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_usuario")
     private Usuario usuario;
 }

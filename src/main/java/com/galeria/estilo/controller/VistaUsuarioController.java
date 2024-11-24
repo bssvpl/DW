@@ -2,9 +2,11 @@ package com.galeria.estilo.controller;
 
 import com.galeria.estilo.model.Producto;
 import com.galeria.estilo.model.Usuario;
+import com.galeria.estilo.model.DatosPer;
 import com.galeria.estilo.service.ProductoService;
+import com.galeria.estilo.service.CarritoService;
 
-import jakarta.servlet.http.HttpServletRequest;
+//import jakarta.servlet.http.HttpServletRequest;
 
 import org.slf4j.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 @Controller
@@ -22,6 +26,9 @@ public class VistaUsuarioController {
 
     @Autowired
     private ProductoService productoService;
+
+    @Autowired
+    private CarritoService carritoService;
 
     // Método para ver los productos de una tienda
     
@@ -43,60 +50,128 @@ public class VistaUsuarioController {
   
 
     @PostMapping("/pago")
-    public String mostrarPago(Model model) {
+    public String mostrarPago(@SessionAttribute(value = "user", required = false) Usuario user, Model model) {
         LOGGER.info("Redirigiendo a la página de pago");
-    
-        // No es necesario buscar un producto, ya que no se está pasando un ID
-        return "Carrito/pago"; // Redirige a la vista de pago
-    }
-    
-
-
-    @GetMapping({"/bag", "/bag/{id}"})
-    public String bag(@PathVariable(value = "id", required = false) Integer id, Model model) {
-        if (id != null) {
-            LOGGER.info("ID enviado como parámetro: {}", id);
-            Optional<Producto> producto = productoService.getProducto(id);
-            if (producto.isPresent()) {
-                model.addAttribute("producto", producto.get());
-                return "Carrito/bag";
-            } else {
-                LOGGER.warn("Producto con ID {} no encontrado", id);
-                return "redirect:/productos";
-            }
-        } else {
-            LOGGER.info("Redirigiendo de /bag a /carrito");
-            return "redirect:/vistausuario/carrito"; // Redirige al endpoint de carrito
+        
+        if (user == null) {
+            LOGGER.warn("Usuario no encontrado en sesión");
+            return "redirect:/login";
         }
+
+        // Añadimos el usuario explícitamente al modelo
+        model.addAttribute("user", user);
+        
+        // Añadimos los datos del carrito
+        model.addAttribute("subtotal", carritoService.getSubtotal());
+        model.addAttribute("descuentoTotal", carritoService.getDescuentoTotal());
+        model.addAttribute("total", carritoService.getTotal());
+        model.addAttribute("cantidadTotal", carritoService.getCantidadTotal());
+
+        return "Carrito/pago";
     }
     
+
+
+    @GetMapping("/bag/{id}")
+    public String agregarAlCarrito(@PathVariable Integer id, Model model) {
+        Optional<Producto> producto = productoService.getProducto(id);
+        if (producto.isPresent()) {
+            carritoService.agregarProducto(producto.get(), 1);
+            return "redirect:/vistausuario/bag";
+        }
+        return "redirect:/vistausuario/carrito";
+    }
+
+    @GetMapping("/bag")
+    public String verCarrito(Model model) {
+        model.addAttribute("items", carritoService.getItems());
+        model.addAttribute("subtotal", carritoService.getSubtotal());
+        model.addAttribute("descuentoTotal", carritoService.getDescuentoTotal());
+        model.addAttribute("total", carritoService.getTotal());
+        model.addAttribute("cantidadTotal", carritoService.getCantidadTotal());
+        return "Carrito/bag";
+    }
 
     @GetMapping("/carrito")
     public String mostrarCarrito(
             @RequestParam(value = "guest", required = false) String guest,
             @SessionAttribute(value = "user", required = false) Usuario user,
             Model model) {
-        // Si no hay usuario y no es invitado, redirige al login
+        
+        // Añadimos el usuario al modelo explícitamente
+        model.addAttribute("user", user);
+        model.addAttribute("guest", guest);
+        
+        // Añadimos los datos del carrito
+        model.addAttribute("subtotal", carritoService.getSubtotal());
+        model.addAttribute("descuentoTotal", carritoService.getDescuentoTotal());
+        model.addAttribute("total", carritoService.getTotal());
+        model.addAttribute("cantidadTotal", carritoService.getCantidadTotal());
+        
+        // Si no hay usuario y no es invitado, muestra el modal
         if (user == null && !"true".equals(guest)) {
-            return "redirect:/login"; // Redirige al login si no es usuario registrado ni invitado
-        }
-
-        // Si es invitado, muestra un mensaje
-        if ("true".equals(guest)) {
-            model.addAttribute("mensaje", "Continuando como invitado");
-        } else if (user != null) {
-            model.addAttribute("mensaje", "Bienvenido de nuevo, " + user.getNombre());
+            model.addAttribute("showModal", true);
         }
         
-        return "Carrito/carrito"; // Si está logueado, muestra la página del carrito
+        return "Carrito/carrito";
     }
     
     @GetMapping("/api/user-data")
-@ResponseBody
-public Usuario obtenerUsuarioDatos(HttpServletRequest request) {
-    // Obtén el usuario logueado
-    Usuario usuario = (Usuario) request.getAttribute("usuario"); // Ajusta según cómo obtengas al usuario logueado
-    return usuario;
-}
+    @ResponseBody
+    public Map<String, Object> obtenerUsuarioDatos(@SessionAttribute(value = "user", required = false)
+     Usuario user) {
+        // Agregué logs detallados para rastrear el flujo de datos
+        Map<String, Object> response = new HashMap<>();
+          
+        try {
+            if (user != null) {
+                System.out.println("Usuario encontrado ID: " + user.getId() + ", Nombre: " + user.getNombre());
+                
+                DatosPer datos = user.getDatosPer();
+                if (datos != null) {
+                    System.out.println("Datos completos del usuario:");
+                    System.out.println("DNI: " + datos.getDni());
+                    System.out.println("Nombre: " + datos.getNombre());
+                    System.out.println("Apellidos: " + datos.getApellidos());
+                    System.out.println("Dirección: " + datos.getDireccion());
+                    System.out.println("Teléfono: " + datos.getTelefono());
+                    System.out.println("Correo: " + datos.getCorreo());
+                    
+                    response.put("nombre", datos.getNombre());
+                    response.put("apellidos", datos.getApellidos());
+                    response.put("dni", datos.getDni());
+                    response.put("direccion", datos.getDireccion());
+                    response.put("telefono", datos.getTelefono());
+                    response.put("correo", datos.getCorreo());
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        System.out.println("Respuesta final: " + response);
+        return response;
+    }
+
+    @PostMapping("/bag/actualizar/{id}")
+    @ResponseBody
+    public Map<String, Object> actualizarCantidad(@PathVariable Integer id, @RequestParam int cantidad) {
+        Optional<Producto> producto = productoService.getProducto(id);
+        if (producto.isPresent()) {
+            carritoService.agregarProducto(producto.get(), cantidad);
+        }
+        return Map.of(
+            "subtotal", carritoService.getSubtotal(),
+            "descuentoTotal", carritoService.getDescuentoTotal(),
+            "total", carritoService.getTotal(),
+            "cantidadTotal", carritoService.getCantidadTotal()
+        );
+    }
+
+    @GetMapping("/bag/eliminar/{id}")
+    public String eliminarDelCarrito(@PathVariable Integer id) {
+        carritoService.eliminarProducto(id);
+        return "redirect:/vistausuario/bag";
+    }
 
 }

@@ -22,7 +22,7 @@ public class Usuario {
     @JoinColumn(name = "rol")
     private Rol rol;
 
-    @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "usuario", fetch = FetchType.EAGER)
     private DatosPer datosPer;
 
 }
